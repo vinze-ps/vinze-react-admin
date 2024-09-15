@@ -5,10 +5,7 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import {
-  IVRAProps,
-  IVRAUserCredentials,
-} from "@/@types/VinzeAdminPanel.types";
+import { IVRAProps, IVRAUserCredentials } from "@/@types/VinzeAdminPanel.types";
 import {
   Button,
   Card,
@@ -76,7 +73,7 @@ const Login = () => {
           {/*  style={{ width: "60px", height: "auto", marginBottom: "1.5rem" }}*/}
           {/*  className={"[&_path]:fill-[#fff]"}*/}
           {/*/>*/}
-          <h1 className="text-default-900 font-medium text-3xl">Login</h1>
+          <h1 className="text-default-900 font-medium text-3xl">Welcome!</h1>
           <span className="text-default-500 text-md mt-2 font-medium">
             Administration panel,{" "}
             <strong>{VRAProps?.config.companyName}</strong>.
@@ -89,21 +86,21 @@ const Login = () => {
               onClick={handleClickLoginGoogle}
               isLoading={loadingLoginGoogle}
               variant={"bordered"}
-              className={"rounded-lg border-1 border-neutral-800"}
+              className={"rounded-lg bg-primary border-none"}
             >
               Login with Google
             </Button>
           )}
-          <div className="my-8 relative">
-            <span
-              className={
-                "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 absolute text-sm text-default-500 bg-background px-4"
-              }
-            >
-              OR
-            </span>
-            <Divider />
-          </div>
+          {/*<div className="my-8 relative">*/}
+          {/*  <span*/}
+          {/*    className={*/}
+          {/*      "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 absolute text-sm text-default-500 bg-background px-4"*/}
+          {/*    }*/}
+          {/*  >*/}
+          {/*    OR*/}
+          {/*  </span>*/}
+          {/*  <Divider />*/}
+          {/*</div>*/}
           {VRAProps?.auth.error && (
             <div
               className={
@@ -117,48 +114,48 @@ const Login = () => {
             className="flex flex-col w-full gap-[1rem]"
             onSubmit={handleSubmit}
           >
-            <Input
-              placeholder={"Enter your login..."}
-              onValueChange={(value) =>
-                dispatchForm({ type: "SET_USERNAME", value })
-              }
-              value={username}
-              label={"Login"}
-              required
-            />
-            <Input
-              onValueChange={(value) =>
-                dispatchForm({ type: "SET_PASSWORD", value })
-              }
-              value={password}
-              label={"Password"}
-              placeholder={"Enter your password..."}
-              type={showPassword ? "text" : "password"}
-              // endContent={
-              //   password ? (
-              //     <>
-              //       {showPassword ? (
-              //         <IonIconCustom
-              //           name="eye-off-outline"
-              //           style={{ margin: "0 0.5rem 0 0", cursor: "pointer" }}
-              //           color="var(--vra-white)"
-              //           onClick={() => setShowPassword(false)}
-              //         />
-              //       ) : (
-              //         <IonIconCustom
-              //           name="eye-outline"
-              //           style={{ margin: "0 0.5rem 0 0", cursor: "pointer" }}
-              //           color="var(--vra-white)"
-              //           onClick={() => setShowPassword(true)}
-              //         />
-              //       )}
-              //     </>
-              //   ) : (
-              //     <></>
-              //   )
-              // }
-              required
-            />
+            {/*<Input*/}
+            {/*  placeholder={"Enter your login..."}*/}
+            {/*  onValueChange={(value) =>*/}
+            {/*    dispatchForm({ type: "SET_USERNAME", value })*/}
+            {/*  }*/}
+            {/*  value={username}*/}
+            {/*  label={"Login"}*/}
+            {/*  required*/}
+            {/*/>*/}
+            {/*<Input*/}
+            {/*  onValueChange={(value) =>*/}
+            {/*    dispatchForm({ type: "SET_PASSWORD", value })*/}
+            {/*  }*/}
+            {/*  value={password}*/}
+            {/*  label={"Password"}*/}
+            {/*  placeholder={"Enter your password..."}*/}
+            {/*  type={showPassword ? "text" : "password"}*/}
+            {/*  endContent={*/}
+            {/*    password ? (*/}
+            {/*      <>*/}
+            {/*        {showPassword ? (*/}
+            {/*          <IonIconCustom*/}
+            {/*            name="eye-off-outline"*/}
+            {/*            style={{ margin: "0 0.5rem 0 0", cursor: "pointer" }}*/}
+            {/*            color="var(--vra-white)"*/}
+            {/*            onClick={() => setShowPassword(false)}*/}
+            {/*          />*/}
+            {/*        ) : (*/}
+            {/*          <IonIconCustom*/}
+            {/*            name="eye-outline"*/}
+            {/*            style={{ margin: "0 0.5rem 0 0", cursor: "pointer" }}*/}
+            {/*            color="var(--vra-white)"*/}
+            {/*            onClick={() => setShowPassword(true)}*/}
+            {/*          />*/}
+            {/*        )}*/}
+            {/*      </>*/}
+            {/*    ) : (*/}
+            {/*      <></>*/}
+            {/*    )*/}
+            {/*  }*/}
+            {/*  required*/}
+            {/*/>*/}
             {/*<Checkbox />*/}
             <Button
               className="w-full bg-foreground text-background rounded-lg mt-4"

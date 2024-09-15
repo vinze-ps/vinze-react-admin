@@ -35,44 +35,52 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background-clip: padding-box;
 }
 
-.sun-editor {
-  @apply h-full rounded-lg;
+//:root {
+//  .vinze-react-admin, .vinze-react-admin * {
+//    font-size: 10px;
+//  }
+//}
 
-  .se-toolbar {
-    @apply rounded-lg;
+.vinze-react-admin {
+  .sun-editor {
+    @apply h-full rounded-lg;
+
+    .se-toolbar {
+      @apply rounded-lg;
+    }
   }
-}
 
-.disabled,
-[data-disabled="true"] {
-  opacity: 0.5;
-  pointer-events: none;
-}
+  .disabled,
+  [data-disabled="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 600;
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
 
-p {
-  @apply text-base;
-}
+  p {
+    @apply text-base;
+  }
 
-.main-container {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  position: relative;
-  overflow-y: auto;
-
-  & > * {
+  .main-container {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
     font-family: "Plus Jakarta Sans", sans-serif;
+    position: relative;
+    overflow-y: auto;
+
+    & > * {
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
   }
 }

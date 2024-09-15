@@ -16,6 +16,7 @@ const VinzeReactAdmin = (props: IVRAProps) => {
 
   return (
     <div className={"vinze-react-admin"}>
+      <div className={"vra-portal-container"}></div>
       <Providers VRAProps={props}>
         <div className={`main-container`}>
           {props.auth.userData !== null ? (

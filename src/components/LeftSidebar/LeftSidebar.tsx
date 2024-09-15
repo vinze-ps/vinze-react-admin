@@ -113,7 +113,9 @@ const LeftSidebar = () => {
           )}
         </Listbox>
         <div className="mt-auto">
-          <Dropdown>
+          <Dropdown
+            portalContainer={document.querySelector(".vra-portal-container")!}
+          >
             <DropdownTrigger>
               <div
                 className={`hover:bg-default cursor-pointer rounded-lg w-full mb-[1rem] flex items-center px-[1rem] py-[0.25rem]`}
