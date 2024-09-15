@@ -39,6 +39,7 @@ export default defineConfig({
         "@tanstack/react-table",
         "cmdk",
         "date-fns",
+        "framer-motion",
       ],
       output: {
         globals: {
@@ -61,6 +62,7 @@ export default defineConfig({
           "@tanstack/react-table": "ReactTable",
           "cmdk": "Cmdk",
           "date-fns": "DateFns",
+          "framer-motion": "FramerMotion",
         },
         assetFileNames: 'assets/[name].[ext]',
       },
