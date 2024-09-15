@@ -7,6 +7,24 @@ module.exports = {
     theme: {
         extend: {},
     },
-    plugins: [nextui()],
+    plugins: [
+        nextui({
+            prefix: 'vra',
+            addCommonColors: false,
+            defaultTheme: 'dark',
+            defaultExtendTheme: 'dark',
+            layout: {},
+            themes: {
+                light: {
+                    layout: {},
+                    colors: {},
+                },
+                dark: {
+                    layout: {},
+                    colors: {},
+                },
+            },
+        }),
+    ],
 }
 

@@ -15,20 +15,22 @@ const VinzeReactAdmin = (props: IVRAProps) => {
   }, []);
 
   return (
-    <Providers VRAProps={props}>
-      <div className={`main-container vinze-react-admin`}>
-        {props.auth.userData !== null ? (
-          <>
-            <div className="flex flex-row h-full w-full p-4 bg-background">
-              <LeftSidebar />
-              <Content />
-            </div>
-          </>
-        ) : (
-          <Login />
-        )}
-      </div>
-    </Providers>
+    <div className={"vinze-react-admin"}>
+      <Providers VRAProps={props}>
+        <div className={`main-container`}>
+          {props.auth.userData !== null ? (
+            <>
+              <div className="flex flex-row h-full w-full p-4 bg-background">
+                <LeftSidebar />
+                <Content />
+              </div>
+            </>
+          ) : (
+            <Login />
+          )}
+        </div>
+      </Providers>
+    </div>
   );
 };
 
