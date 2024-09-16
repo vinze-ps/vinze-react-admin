@@ -65,13 +65,5 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   button {
     @apply text-small rounded-[0.75rem] font-semibold;
-
-  }
-
-  .input-transparent {
-    [data-slot="input-wrapper"] {
-      @apply bg-zinc-600 data-[hover=true]:bg-zinc-400 group-data-[focus=true]:bg-zinc-500;
-      --tw-bg-opacity: 0.2 !important;
-    }
   }
 }

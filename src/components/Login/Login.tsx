@@ -1,26 +1,36 @@
 import React, {
-  FormEvent,
   useCallback,
   useContext,
-  useReducer,
   useState,
 } from "react";
-import { IVRAProps, IVRAUserCredentials } from "@/@types/VinzeAdminPanel.types";
+import { IVRAProps } from "@/@types/VinzeAdminPanel.types";
 import {
-  Button,
   Card,
   CardBody,
   CardHeader,
-  Input,
   Divider
 } from "@nextui-org/react";
 import { VRAContext } from "@/store/VRAContext";
 import IonIcon from '@reacticons/ionicons';
+import {Input} from "@/components/ui/input.tsx";
+import {Button} from "@/components/ui/button.tsx";
+import Ripple from "@/components/magicui/ripple";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 
-interface IUserDataActions {
-  value: string;
-  type: "SET_USERNAME" | "SET_PASSWORD";
-}
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+const formSchema = z.object({
+  username: z.string().min(2).max(50),
+  password: z.string().min(6).max(50).regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/),
+})
 
 const Login = () => {
   const VRAProps: IVRAProps | null = useContext(VRAContext).state.VRAProps;
@@ -28,43 +38,35 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loadingLoginGoogle, setLoadingLoginGoogle] = useState<boolean>(false);
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
-  const [formState, dispatchForm] = useReducer(
-    (state: IVRAUserCredentials, action: IUserDataActions) => {
-      switch (action.type) {
-        case "SET_USERNAME":
-          return { ...state, username: action.value };
-        case "SET_PASSWORD":
-          return { ...state, password: action.value };
-        default:
-          return { ...state };
-      }
-    },
-    { username: "", password: "" },
-  );
 
-  const { username, password } = formState;
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  })
 
   const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+    (values: z.infer<typeof formSchema>) => {
       setLoadingLogin(true);
       VRAProps?.auth
-        ?.onSubmit("DEFAULT", { username, password })
+        ?.onSubmit("DEFAULT", values)
         .then((result) => {
           if (!result.status) setLoadingLogin(false);
         });
     },
-    [VRAProps?.auth, password, username],
+    [VRAProps?.auth],
   );
 
   const handleClickLoginGoogle = useCallback(() => {
     setLoadingLoginGoogle(true);
     VRAProps?.auth
-      ?.onSubmit("GOOGLE", { username, password })
+      ?.onSubmit("GOOGLE", { username: form.getValues("username"), password: form.getValues("password") })
       .then((result) => {
         if (!result.status) setLoadingLoginGoogle(false);
       });
-  }, [VRAProps?.auth, password, username]);
+  }, [VRAProps?.auth]);
 
   return (
     <div className="left-0 top-0 fixed w-[100vw] h-[100vh] flex flex-col justify-center items-center bg-[var(--vra-black)]">
@@ -114,53 +116,67 @@ const Login = () => {
               {VRAProps.auth.error.message}
             </div>
           )}
+          <Form {...form}>
           <form
             className="flex flex-col w-full gap-[1rem]"
-            onSubmit={handleSubmit}
+            onSubmit={form.handleSubmit(handleSubmit)}
           >
-            <Input
-              onValueChange={(value) =>
-                dispatchForm({ type: "SET_USERNAME", value })
-              }
-              className={"input-transparent"}
-              value={username}
-              size={"lg"}
-              placeholder={"Login"}
-              required
-            />
-            <Input
-              onValueChange={(value) =>
-                dispatchForm({ type: "SET_PASSWORD", value })
-              }
-              size={"lg"}
-              value={password}
-              placeholder={"Password"}
-              className={"input-transparent"}
-              type={showPassword ? "text" : "password"}
-              endContent={
-                password ? (
-                  <>
-                    {showPassword ? (
-                      <IonIcon
-                        name="eye-off-outline"
-                        className={"cursor-pointer"}
-                        onClick={() => setShowPassword(false)}
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder={"Username"}
+                        isTransparent
+                        size={"lg"}
+                        required
                       />
-                    ) : (
-                      <IonIcon
-                        name="eye-outline"
-                        className={"cursor-pointer"}
-                        onClick={() => setShowPassword(true)}
-                      />
-                    )}
-                  </>
-                ) : (
-                  <></>
-                )
-              }
-              required
-            />
-            {/*<Checkbox />*/}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          size={"lg"}
+                          placeholder={"Password"}
+                          isTransparent
+                          type={showPassword ? "text" : "password"}
+                          endContent={
+                            field.value ? (
+                              <>
+                                {showPassword ? (
+                                  <IonIcon
+                                    name="eye-off-outline"
+                                    className={"cursor-pointer"}
+                                    onClick={() => setShowPassword(false)}
+                                  />
+                                ) : (
+                                  <IonIcon
+                                    name="eye-outline"
+                                    className={"cursor-pointer"}
+                                    onClick={() => setShowPassword(true)}
+                                  />
+                                )}
+                              </>
+                            ) : undefined
+                          }
+                          required
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+              />
             <Button
               className="w-full bg-foreground text-background mt-2 !text-[1rem]"
               type="submit"
@@ -170,46 +186,9 @@ const Login = () => {
             >
               Log in
             </Button>
-            {/* <FormControl fullWidth>
-            <TextField
-              className={styles["input"]}
-              onChange={(e) => dispatchForm({ type: "SET_USERNAME", value: e.target.value })}
-              variant="outlined"
-              label="Login"
-              size="small"
-              required
-            />
-            <TextField
-              className={styles["input"]}
-              onChange={(e) => dispatchForm({ type: "SET_PASSWORD", value: e.target.value })}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    
-                  </InputAdornment>
-                ),
-              }}
-              variant="outlined"
-              label="Hasło"
-              size="small"
-              required
-            />
-            <LoadingButton
-              loading={loadingLogin}
-              className={styles["submit"]}
-              type="submit"
-              variant="contained"
-              sx={{
-                "& .MuiCircularProgress-root": {
-                  color: "var(--vra-text-primary)",
-                },
-              }}
-            >
-              <IonIconCustom name="log-in-outline" style={{ margin: "0 0.5rem 0 0" }} />
-              Zaloguj się
-            </LoadingButton>
-          </FormControl> */}
-          </form></>}
+          </form>
+          </Form>
+          </>}
           {!showInputs && <Button
             className="w-full bg-zinc-600 text-foreground mt-2 !text-[1rem] bg-opacity-20"
             onClick={() => setShowInputs(true)}
@@ -219,27 +198,8 @@ const Login = () => {
             Continue with login
           </Button>}
         </CardBody>
-        {/*<Divider className="mt-[0.75rem]" />*/}
-        {/*<CardFooter className="flex items-center justify-between">*/}
-        {/*  <p className="text-[0.75rem]">© {new Date().getFullYear()} vinze</p>*/}
-        {/*  /!*<p className="text-[0.75rem]">version {packagejson.version}</p>*!/*/}
-        {/*</CardFooter>*/}
       </Card>
-      <div
-        style={{
-          background: `radial-gradient(
-            150% 150% at 20% 20%, 
-            rgb(10, 10, 40) 20%,   
-            rgb(20, 22, 50) 35%,   
-            rgb(30, 34, 110) 50%,   
-            rgb(5, 56, 150) 65%,   
-            rgb(4, 120, 200) 75%,  
-            rgb(0, 180, 220) 85%,  
-            rgb(0, 230, 240) 100%  
-          )`,
-        }}
-        className={"absolute top-0 left-0 w-full h-full"}
-      ></div>
+      <Ripple className={"bg-gradient-to-r from-primary"} />
     </div>
   );
 };

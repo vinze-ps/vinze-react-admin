@@ -12,6 +12,24 @@ module.exports = {
             // borderRadius: {
             //     large: "24px",
             // }
+            animation: {
+                grid: "grid 120s linear infinite",
+                ripple: "ripple var(--duration,4s) ease calc(var(--i, 0)*.4s) infinite",
+            },
+            keyframes: {
+                grid: {
+                    "0%": { transform: "translateY(-50%)" },
+                    "100%": { transform: "translateY(0)" },
+                },
+                ripple: {
+                    "0%, 100%": {
+                        transform: "translate(-50%, -50%) scale(1)",
+                    },
+                    "50%": {
+                        transform: "translate(-50%, -50%) scale(0.75)",
+                    },
+                },
+            },
         },
     },
     plugins: [
