@@ -9,6 +9,9 @@ module.exports = {
             colors: {
                 primary: '#601EF9',
             },
+            // borderRadius: {
+            //     large: "24px",
+            // }
         },
     },
     plugins: [

@@ -10,12 +10,11 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
-  Divider,
+  Input,
+  Divider
 } from "@nextui-org/react";
 import { VRAContext } from "@/store/VRAContext";
-import { Input } from "@/components/ui/input";
 import IonIcon from '@reacticons/ionicons';
 
 interface IUserDataActions {
@@ -25,6 +24,7 @@ interface IUserDataActions {
 
 const Login = () => {
   const VRAProps: IVRAProps | null = useContext(VRAContext).state.VRAProps;
+  const [showInputs, setShowInputs] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loadingLoginGoogle, setLoadingLoginGoogle] = useState<boolean>(false);
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
@@ -68,40 +68,43 @@ const Login = () => {
 
   return (
     <div className="left-0 top-0 fixed w-[100vw] h-[100vh] flex flex-col justify-center items-center bg-[var(--vra-black)]">
-      <Card className="p-[1rem] pt-[2rem] max-w-[25rem] w-full z-[10] border-1 border-neutral-900 bg-background bg-opacity-80 backdrop-blur-lg">
+      <Card className="p-[1.25rem] max-w-[27.5rem] w-full z-[10] bg-background bg-opacity-60 backdrop-blur-lg rounded-3xl">
         <CardHeader className="flex flex-col items-center text-center">
           {/*<Logo*/}
           {/*  style={{ width: "60px", height: "auto", marginBottom: "1.5rem" }}*/}
           {/*  className={"[&_path]:fill-[#fff]"}*/}
           {/*/>*/}
-          <h1 className="text-default-900 font-medium text-3xl mb-1">Welcome</h1>
-          <span className="text-default-500 text-md font-medium">
-            Administration panel,{" "}
-            <strong>{VRAProps?.config.companyName}</strong>.
+          <h1 className="text-foreground font-medium text-3xl mb-2">Welcome</h1>
+          <span className="text-zinc-400 text-md font-medium">
+            You can login here to your <strong>{VRAProps?.config.companyName}</strong>'s administrator panel.
           </span>
         </CardHeader>
         <CardBody>
-          {VRAProps?.auth.google && (
+        {VRAProps?.auth.google && (
             <Button
               startContent={<IonIcon name="logo-google" />}
               onClick={handleClickLoginGoogle}
               isLoading={loadingLoginGoogle}
               variant={"bordered"}
-              className={"rounded-lg bg-primary border-none"}
+              size={"lg"}
+              className={"bg-primary border-none !text-[1rem]"}
             >
-              Login with Google
+              Continue with Google
             </Button>
           )}
-          {/*<div className="my-8 relative">*/}
-          {/*  <span*/}
-          {/*    className={*/}
-          {/*      "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 absolute text-sm text-default-500 bg-background px-4"*/}
-          {/*    }*/}
-          {/*  >*/}
-          {/*    OR*/}
-          {/*  </span>*/}
-          {/*  <Divider />*/}
-          {/*</div>*/}
+          {showInputs && <>
+          <div className="my-6 relative">
+            <span
+              className={
+                "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 absolute text-sm text-default-500"
+              }
+            >
+              OR
+            </span>
+            <div className={"w-full flex"}>
+            <Divider className={"w-[calc(50%-1.5rem)]"} />
+            <Divider className={"w-[calc(50%-1.5rem)] ms-auto"} /></div>
+          </div>
           {VRAProps?.auth.error && (
             <div
               className={
@@ -115,57 +118,57 @@ const Login = () => {
             className="flex flex-col w-full gap-[1rem]"
             onSubmit={handleSubmit}
           >
-            {/*<Input*/}
-            {/*  placeholder={"Enter your login..."}*/}
-            {/*  onValueChange={(value) =>*/}
-            {/*    dispatchForm({ type: "SET_USERNAME", value })*/}
-            {/*  }*/}
-            {/*  value={username}*/}
-            {/*  label={"Login"}*/}
-            {/*  required*/}
-            {/*/>*/}
-            {/*<Input*/}
-            {/*  onValueChange={(value) =>*/}
-            {/*    dispatchForm({ type: "SET_PASSWORD", value })*/}
-            {/*  }*/}
-            {/*  value={password}*/}
-            {/*  label={"Password"}*/}
-            {/*  placeholder={"Enter your password..."}*/}
-            {/*  type={showPassword ? "text" : "password"}*/}
-            {/*  endContent={*/}
-            {/*    password ? (*/}
-            {/*      <>*/}
-            {/*        {showPassword ? (*/}
-            {/*          <IonIconCustom*/}
-            {/*            name="eye-off-outline"*/}
-            {/*            style={{ margin: "0 0.5rem 0 0", cursor: "pointer" }}*/}
-            {/*            color="var(--vra-white)"*/}
-            {/*            onClick={() => setShowPassword(false)}*/}
-            {/*          />*/}
-            {/*        ) : (*/}
-            {/*          <IonIconCustom*/}
-            {/*            name="eye-outline"*/}
-            {/*            style={{ margin: "0 0.5rem 0 0", cursor: "pointer" }}*/}
-            {/*            color="var(--vra-white)"*/}
-            {/*            onClick={() => setShowPassword(true)}*/}
-            {/*          />*/}
-            {/*        )}*/}
-            {/*      </>*/}
-            {/*    ) : (*/}
-            {/*      <></>*/}
-            {/*    )*/}
-            {/*  }*/}
-            {/*  required*/}
-            {/*/>*/}
+            <Input
+              onValueChange={(value) =>
+                dispatchForm({ type: "SET_USERNAME", value })
+              }
+              className={"input-transparent"}
+              value={username}
+              size={"lg"}
+              placeholder={"Login"}
+              required
+            />
+            <Input
+              onValueChange={(value) =>
+                dispatchForm({ type: "SET_PASSWORD", value })
+              }
+              size={"lg"}
+              value={password}
+              placeholder={"Password"}
+              className={"input-transparent"}
+              type={showPassword ? "text" : "password"}
+              endContent={
+                password ? (
+                  <>
+                    {showPassword ? (
+                      <IonIcon
+                        name="eye-off-outline"
+                        className={"cursor-pointer"}
+                        onClick={() => setShowPassword(false)}
+                      />
+                    ) : (
+                      <IonIcon
+                        name="eye-outline"
+                        className={"cursor-pointer"}
+                        onClick={() => setShowPassword(true)}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <></>
+                )
+              }
+              required
+            />
             {/*<Checkbox />*/}
             <Button
-              className="w-full bg-foreground text-background rounded-lg mt-2"
+              className="w-full bg-foreground text-background mt-2 !text-[1rem]"
               type="submit"
-              size={"md"}
+              size={"lg"}
               color="primary"
               isLoading={loadingLogin}
             >
-              Continue
+              Log in
             </Button>
             {/* <FormControl fullWidth>
             <TextField
@@ -206,26 +209,34 @@ const Login = () => {
               Zaloguj się
             </LoadingButton>
           </FormControl> */}
-          </form>
+          </form></>}
+          {!showInputs && <Button
+            className="w-full bg-zinc-600 text-foreground mt-2 !text-[1rem] bg-opacity-20"
+            onClick={() => setShowInputs(true)}
+            size={"lg"}
+            color="primary"
+          >
+            Continue with login
+          </Button>}
         </CardBody>
-        <Divider className="mt-[0.75rem]" />
-        <CardFooter className="flex items-center justify-between">
-          <p className="text-[0.75rem]">© {new Date().getFullYear()} vinze</p>
-          {/*<p className="text-[0.75rem]">version {packagejson.version}</p>*/}
-        </CardFooter>
+        {/*<Divider className="mt-[0.75rem]" />*/}
+        {/*<CardFooter className="flex items-center justify-between">*/}
+        {/*  <p className="text-[0.75rem]">© {new Date().getFullYear()} vinze</p>*/}
+        {/*  /!*<p className="text-[0.75rem]">version {packagejson.version}</p>*!/*/}
+        {/*</CardFooter>*/}
       </Card>
       <div
         style={{
           background: `radial-gradient(
-          241.5% 113.1% at -66.4% 35.9%,
-          rgb(0, 0, 0) 28%,
-          rgb(5, 1, 35) 43.1%,
-          rgb(4, 67, 162) 56.4%,
-          rgb(0, 68, 255) 66.5%,
-          rgb(0, 102, 255) 71.7%,
-          rgb(0, 204, 255) 80.6%,
-          rgb(0, 255, 208) 91.9%
-        )`,
+            150% 150% at 20% 20%, 
+            rgb(10, 10, 40) 20%,   
+            rgb(20, 22, 50) 35%,   
+            rgb(30, 34, 110) 50%,   
+            rgb(5, 56, 150) 65%,   
+            rgb(4, 120, 200) 75%,  
+            rgb(0, 180, 220) 85%,  
+            rgb(0, 230, 240) 100%  
+          )`,
         }}
         className={"absolute top-0 left-0 w-full h-full"}
       ></div>

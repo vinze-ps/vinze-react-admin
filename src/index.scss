@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -55,15 +55,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   position: relative;
   overflow-y: auto;
 
   & > * {
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
   button {
-    @apply text-small;
+    @apply text-small rounded-[0.75rem] font-semibold;
+
+  }
+
+  .input-transparent {
+    [data-slot="input-wrapper"] {
+      @apply bg-zinc-600 data-[hover=true]:bg-zinc-400 group-data-[focus=true]:bg-zinc-500;
+      --tw-bg-opacity: 0.2 !important;
+    }
   }
 }

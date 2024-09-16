@@ -1,11 +1,4 @@
 import React, { useContext, useMemo } from "react";
-import {
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Card,
-} from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
 import { getVRAModulesColumns } from "@/constants/VRAModulesColumns";
 import VRAModulesConstants from "../../../constants/VRAModulesConstants";
@@ -15,7 +8,7 @@ import {
 } from "@/@types/VinzeAdminPanel.types";
 import { VRAContext } from "@/store/VRAContext";
 import { Plus } from "lucide-react";
-import {Button} from "@nextui-org/react";
+import {Button, Card, CardBody, CardHeader} from "@nextui-org/react";
 
 const DisplayDefault = ({
   currentModule,
@@ -45,12 +38,12 @@ const DisplayDefault = ({
     <Card className={"border-none bg-default-50 rounded-xl"}>
       <CardHeader className={"p-4 flex-row items-center justify-between"}>
         <div className={"flex gap-2 items-center"}>
-          <CardTitle className={"text-xl text-white"}>
+          <h1 className={"text-xl text-white"}>
             {moduleConstants?.title}
-          </CardTitle>
-          <CardDescription className={"!mt-0 text-md"}>
+          </h1>
+          <p className={"!mt-0 text-md"}>
             {moduleConstants?.description}
-          </CardDescription>
+          </p>
         </div>
         <Button
           className={"bg-primary text-foreground"}
@@ -63,9 +56,9 @@ const DisplayDefault = ({
           {moduleConstants?.addNew}
         </Button>
       </CardHeader>
-      <CardContent className={"p-4"}>
+      <CardBody className={"p-4"}>
         <DataTable columns={columns} data={currentModule.data} />
-      </CardContent>
+      </CardBody>
     </Card>
   );
 };
