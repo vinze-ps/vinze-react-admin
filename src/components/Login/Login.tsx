@@ -16,6 +16,7 @@ import {
 } from "@nextui-org/react";
 import { VRAContext } from "@/store/VRAContext";
 import { Input } from "@/components/ui/input";
+import IonIcon from '@reacticons/ionicons';
 
 interface IUserDataActions {
   value: string;
@@ -67,14 +68,14 @@ const Login = () => {
 
   return (
     <div className="left-0 top-0 fixed w-[100vw] h-[100vh] flex flex-col justify-center items-center bg-[var(--vra-black)]">
-      <Card className="p-[1rem] pt-[2rem] max-w-[25rem] w-full z-[10] border-1 border-neutral-900 bg-background">
+      <Card className="p-[1rem] pt-[2rem] max-w-[25rem] w-full z-[10] border-1 border-neutral-900 bg-background bg-opacity-80 backdrop-blur-lg">
         <CardHeader className="flex flex-col items-center text-center">
           {/*<Logo*/}
           {/*  style={{ width: "60px", height: "auto", marginBottom: "1.5rem" }}*/}
           {/*  className={"[&_path]:fill-[#fff]"}*/}
           {/*/>*/}
           <h1 className="text-default-900 font-medium text-3xl">Welcome!</h1>
-          <span className="text-default-500 text-md mt-2 font-medium">
+          <span className="text-default-500 text-md font-medium">
             Administration panel,{" "}
             <strong>{VRAProps?.config.companyName}</strong>.
           </span>
@@ -82,7 +83,7 @@ const Login = () => {
         <CardBody>
           {VRAProps?.auth.google && (
             <Button
-              // startContent={<IonIconCustom name="logo-google" />}
+              startContent={<IonIcon name="logo-google" />}
               onClick={handleClickLoginGoogle}
               isLoading={loadingLoginGoogle}
               variant={"bordered"}
@@ -158,13 +159,13 @@ const Login = () => {
             {/*/>*/}
             {/*<Checkbox />*/}
             <Button
-              className="w-full bg-foreground text-background rounded-lg mt-4"
+              className="w-full bg-foreground text-background rounded-lg mt-2"
               type="submit"
               size={"md"}
               color="primary"
               isLoading={loadingLogin}
             >
-              Login
+              Continue
             </Button>
             {/* <FormControl fullWidth>
             <TextField
