@@ -12,7 +12,7 @@ const Providers = ({
 }) => {
   return (
     <VRAProvider VRAProps={VRAProps}>
-      <NextUIProvider className={"h-full"}>
+      <NextUIProvider className={"h-full"} disableRipple>
         <SnackbarProvider autoHideDuration={5000} maxSnack={3}>
           {children}
         </SnackbarProvider>

@@ -14,8 +14,8 @@ import {
   TVRADialogAddEditAction,
 } from "@/@types/VinzeAdminPanel.types";
 import { VRAContext } from "@/store/VRAContext";
-import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import {Button} from "@nextui-org/react";
 
 const DisplayDefault = ({
   currentModule,

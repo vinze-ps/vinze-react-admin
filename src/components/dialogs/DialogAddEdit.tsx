@@ -12,8 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import {Button} from "@nextui-org/react";
 
 const DialogAddEdit = ({
   dispatchDialogAddEdit,

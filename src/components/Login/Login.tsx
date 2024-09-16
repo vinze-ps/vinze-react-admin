@@ -74,7 +74,7 @@ const Login = () => {
           {/*  style={{ width: "60px", height: "auto", marginBottom: "1.5rem" }}*/}
           {/*  className={"[&_path]:fill-[#fff]"}*/}
           {/*/>*/}
-          <h1 className="text-default-900 font-medium text-3xl">Welcome!</h1>
+          <h1 className="text-default-900 font-medium text-3xl mb-1">Welcome</h1>
           <span className="text-default-500 text-md font-medium">
             Administration panel,{" "}
             <strong>{VRAProps?.config.companyName}</strong>.
