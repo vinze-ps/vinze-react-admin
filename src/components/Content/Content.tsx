@@ -3,9 +3,8 @@ import { VRAContext } from "@/store/VRAContext";
 import DialogAddEdit from "../../components/dialogs/DialogAddEdit";
 import {
   IVRADialogAddEditState,
-  IVRAProps,
   TVRADialogAddEditAction,
-} from "@/@types/VinzeAdminPanel.types";
+} from "@/@types/VRA.types";
 
 const Content = React.memo(() => {
   const [dialogAddEditState, dispatchDialogAddEdit] = useReducer(
@@ -27,17 +26,17 @@ const Content = React.memo(() => {
 
   if (!state.VRAProps) return null;
 
-  const { currentModule } = state.menu;
-  const { modules }: IVRAProps = state.VRAProps;
-  const currentModule = modules[currentModule];
+  const { modules, menu } = state;
+  const { currentModule } = menu;
+  const module = modules[currentModule];
 
   return (
     <>
-      {currentModule && (
+      {module && (
         <DialogAddEdit
           dialogAddEditState={dialogAddEditState}
           dispatchDialogAddEdit={dispatchDialogAddEdit}
-          currentModule={currentModule}
+          module={module}
         />
       )}
       <div className="ps-4 relative flex-1 overflow-auto">

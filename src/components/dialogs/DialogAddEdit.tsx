@@ -3,7 +3,7 @@ import {
   IVRADialogAddEditState,
   IVRAModule,
   TVRADialogAddEditAction,
-} from "@/@types/VinzeAdminPanel.types";
+} from "@/@types/VRA.types";
 import {
   Dialog,
   DialogContent,
@@ -13,16 +13,16 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Input } from "../ui/input";
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
 const DialogAddEdit = ({
   dispatchDialogAddEdit,
   dialogAddEditState,
-  currentModule,
+  module,
 }: {
   dispatchDialogAddEdit: React.Dispatch<TVRADialogAddEditAction>;
   dialogAddEditState: IVRADialogAddEditState;
-  currentModule: IVRAModule;
+  module: IVRAModule<any>;
 }) => {
   return (
     <Dialog
@@ -43,18 +43,18 @@ const DialogAddEdit = ({
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-2 gap-4 py-4">
-          {Object.keys(currentModule.fields).map((field) => {
-            if (currentModule.fields[field]?.primary) return null;
+          {Object.keys(module.fields).map((field) => {
+            if (module.fields[field]?.primary) return null;
             return (
               <Input
                 key={field}
-                placeholder={`Enter ${currentModule.fields[field]?.label}...`}
+                placeholder={`Enter ${module.fields[field]?.label}...`}
                 // onValueChange={(value) => {
-                  // dispatchForm({ type: "SET_USERNAME", value })
+                // dispatchForm({ type: "SET_USERNAME", value })
                 // }}
                 className={"col-span-1"}
                 value={""}
-                label={currentModule.fields[field]?.label}
+                label={module.fields[field]?.label}
                 required
               />
             );

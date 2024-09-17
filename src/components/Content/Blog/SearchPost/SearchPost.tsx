@@ -1,14 +1,16 @@
-// import { IVRAProps } from "@/@types/VinzeAdminPanel.types";
+// import { IVRA } from "@/@types/VRA.types";
 // import timeHelpers from "../../../../utils/timeHelpers";
 // import { search } from "@/utils/search";
 // import { VRAContext } from "@/store/VRAContext";
 
-const SearchPost = ({
-  // getPostItem,
-}: {
-  getPostItem: (p: any, index: number) => JSX.Element;
-}) => {
-  // const { modules }: IVRAProps = useContext(VRAContext).state.VRAProps;
+const SearchPost = (
+  {
+    // getPostItem,
+  }: {
+    getPostItem: (p: any, index: number) => JSX.Element;
+  },
+) => {
+  // const { modules }: IVRA = useContext(VRAContext).state.VRAProps;
   // const config: IVRAModuleConfig<IVRAModuleBlogConfigOptions> | undefined = cards.find(
   //   (m) => m.name === "BLOG"
   // )?.config;
@@ -41,8 +43,7 @@ const SearchPost = ({
   return (
     <div style={{ gridColumn: "span 6", gridRow: "span 5" }}>
       <h1>
-        Wyszukaj post{" "}
-        {/*<IonIconCustom*/}
+        Wyszukaj post {/*<IonIconCustom*/}
         {/*  name="search-outline"*/}
         {/*  size="large"*/}
         {/*  style={{ marginLeft: "0.5rem" }}*/}

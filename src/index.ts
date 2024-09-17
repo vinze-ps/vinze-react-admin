@@ -1,1 +1,1 @@
-export { default } from './VinzeAdminPanel';
+export { default } from "./VinzeReactAdmin";

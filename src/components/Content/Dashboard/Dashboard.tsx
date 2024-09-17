@@ -1,9 +1,9 @@
 import React from "react";
-// import { IVRAProps } from "@/@types/VinzeAdminPanel.types";
+// import { IVRA } from "@/@types/VRA.types";
 // import { VRAContext } from "@/store/VRAContext";
 
 const Dashboard = React.memo(() => {
-  // const { modules }: IVRAProps = useContext(VRAContext).state.VRAProps;
+  // const { modules }: IVRA = useContext(VRAContext).state.VRAProps;
 
   return (
     <>

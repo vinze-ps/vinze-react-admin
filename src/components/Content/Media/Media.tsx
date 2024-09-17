@@ -1,5 +1,5 @@
 import React from "react";
-// import { IVRAProps } from "@/@types/VinzeAdminPanel.types";
+// import { IVRA } from "@/@types/VRA.types";
 // import IonIconCustom from "@/components/IonIconCustom/IonIconCustom";
 // import { VRAContext } from "@/store/VRAContext";
 
@@ -10,7 +10,7 @@ const Media = ({
   style?: React.CSSProperties;
   onMediaClick?: (mediaItem: any) => void;
 }) => {
-  // const { modules }: IVRAProps = useContext(VRAContext).state.VRAProps;
+  // const { modules }: IVRA = useContext(VRAContext).state.VRAProps;
   // const config: IVRAModuleConfig<IVRAModuleMediaConfigOptions> = cards.find(
   //   (module) => module.name === "MEDIA"
   // )!.config;

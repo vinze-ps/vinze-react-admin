@@ -1,5 +1,5 @@
 import { ColumnDef, Row } from "@tanstack/react-table";
-import {Button, Chip} from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import { DataTableColumnHeader } from "@/components/ui/data-table";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { IVRAField } from "@/@types/VinzeAdminPanel.types";
+import { IVRAField } from "@/@types/VRA.types";
 import moment from "moment";
 
 export const getVRAModulesColumns = (

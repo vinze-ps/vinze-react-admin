@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { IVRAProps, TVRAModuleType } from "@/@types/VinzeAdminPanel.types";
+import { IVRA } from "@/@types/VRA.types";
 import Logo from "@/assets/logo.svg";
 import {
   Dropdown,
@@ -14,20 +14,22 @@ import { cn } from "@/lib/utils";
 
 const LeftSidebar = () => {
   const { state, dispatchVRA } = useContext(VRAContext);
-  const { modules, auth }: IVRAProps = state.VRAProps!;
+  const { auth }: IVRA = state.VRAProps!;
   const { onLogout, userData } = auth;
-  const { currentModule } = state.menu;
+  const { menu, modules } = state;
+  const { currentModule } = menu;
   const listItems = useMemo(
     () =>
-      (Object.keys(modules) as TVRAModuleType[]).map((type) => ({
-        ...modules[type],
-        type,
-        className: `${currentModule === type ? "bg-default text-[var(--vra-text-primary)]" : ""}`,
+      modules.map((module) => ({
+        ...module,
+        className: `${currentModule === module.name ? "bg-default text-[var(--vra-text-primary)]" : ""}`,
         onClick: () =>
-          dispatchVRA({ type: "SET_CURRENT_MODULE", payload: type }),
+          dispatchVRA({ type: "SET_CURRENT_MODULE", payload: module.name }),
       })),
     [dispatchVRA, modules, currentModule],
   );
+
+  console.log(modules);
 
   return (
     <div className="w-full max-w-[200px] p-3 items-center text-[var(--vra-text-primary)] flex flex-col justify-between h-full rounded-xl border-[var(--vra-background-tertiary)] bg-default-50 flex-shrink-0">
@@ -96,8 +98,8 @@ const LeftSidebar = () => {
         >
           {(listItem) => (
             <ListboxItem
-              key={listItem.type}
-              textValue={listItem.type}
+              key={listItem.name}
+              textValue={listItem.name}
               onClick={listItem.onClick}
               className={cn(
                 `text-[var(--vra-text-tertiary)]`,
@@ -106,9 +108,9 @@ const LeftSidebar = () => {
               classNames={{
                 title: "text-xs",
               }}
-              startContent={VRAModulesConstants[listItem.type]?.navigation.icon}
+              startContent={VRAModulesConstants[listItem.name]?.navigation.icon}
             >
-              {VRAModulesConstants[listItem.type]?.navigation.text}
+              {VRAModulesConstants[listItem.name]?.navigation.text}
             </ListboxItem>
           )}
         </Listbox>

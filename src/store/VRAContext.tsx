@@ -3,11 +3,7 @@ import {
   VRAReducer,
   initialVRAState,
 } from "@/reducers/vinze-react-admin-reducer";
-import {
-  IVRAProps,
-  IVRAReducerAction,
-  IVRAReducerState,
-} from "@/@types/VinzeAdminPanel.types";
+import { IVRA, IVRAReducerAction, IVRAReducerState } from "@/@types/VRA.types";
 
 const initialVRAContext: {
   state: IVRAReducerState;
@@ -19,10 +15,7 @@ const initialVRAContext: {
 
 const VRAContext = createContext(initialVRAContext);
 
-const VRAProvider = (props: {
-  children: React.ReactNode;
-  VRAProps: IVRAProps;
-}) => {
+const VRAProvider = (props: { children: React.ReactNode; VRAProps: IVRA }) => {
   const { VRAProps } = props;
   const [state, dispatchVRA] = useReducer(VRAReducer, initialVRAState);
 

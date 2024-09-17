@@ -1,6 +1,6 @@
 import React from "react";
 // import { useSnackbar } from "notistack";
-// import { IVRAProps } from "@/@types/VinzeAdminPanel.types";
+// import { IVRA } from "@/@types/VRA.types";
 // import SunEditor from "suneditor-react";
 // import dayjs, { Dayjs } from "dayjs";
 // import { useEditorOptions } from "@/hooks/use-editor-options";
@@ -14,7 +14,7 @@ import React from "react";
 
 const AddNewPost = React.memo(() => {
   // const editorOptions = useEditorOptions();
-  // const { modules }: IVRAProps = useContext(VRAContext).state.VRAProps;
+  // const { modules }: IVRA = useContext(VRAContext).state.VRAProps;
   // const config: IVRAModuleConfig<IVRAModuleBlogConfigOptions> | undefined = cards.find(
   //   (m) => m.name === "BLOG"
   // )?.config;

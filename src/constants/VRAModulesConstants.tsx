@@ -8,7 +8,7 @@ import {
   ShoppingBag,
   Users,
 } from "lucide-react";
-import { TVRAModuleConstants } from "@/@types/VinzeAdminPanel.types";
+import { TVRAModuleConstants } from "@/@types/VRA.types";
 
 const VRAModulesConstants: TVRAModuleConstants = {
   DASHBOARD: {

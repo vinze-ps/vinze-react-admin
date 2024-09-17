@@ -1,15 +1,16 @@
-
 // import objectHelpers from "../../../../utils/objectHelpers";
-// import { IVRAProps } from "@/@types/VinzeAdminPanel.types";
+// import { IVRA } from "@/@types/VRA.types";
 // import IonIconCustom from "../../../../components/IonIconCustom/IonIconCustom";
 // import { VRAContext } from "@/store/VRAContext";
 
-const LastBlog = ({
-  // getPostItem,
-}: {
-  getPostItem: (p: any, index: number) => JSX.Element;
-}) => {
-  // const { modules }: IVRAProps = useContext(VRAContext).state.VRAProps;
+const LastBlog = (
+  {
+    // getPostItem,
+  }: {
+    getPostItem: (p: any, index: number) => JSX.Element;
+  },
+) => {
+  // const { modules }: IVRA = useContext(VRAContext).state.VRAProps;
   // const config: IVRAModuleConfig<IVRAModuleBlogConfigOptions> | undefined = cards.find(
   //   (m) => m.name === "BLOG"
   // )?.config;
@@ -18,8 +19,7 @@ const LastBlog = ({
   return (
     <div style={{ gridColumn: "span 6", gridRow: "span 5" }}>
       <h1>
-        Latest blog{" "}
-        {/*<IonIconCustom*/}
+        Latest blog {/*<IonIconCustom*/}
         {/*  size="large"*/}
         {/*  name="megaphone-outline"*/}
         {/*  style={{ marginLeft: "0.5rem" }}*/}

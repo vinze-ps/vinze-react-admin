@@ -1,12 +1,12 @@
 import React from "react";
 
-export interface IVRAProps {
+export interface IVRA {
   auth: IVRAAuth;
   config: IVRAConfig;
   children?: React.ReactNode;
 }
 
-export interface IVRAModuleProps<T> {
+export interface IVRAModule<T> {
   name: string;
   data: T[];
   callbacks: IVRAModuleCallbacks<T>;
@@ -27,11 +27,7 @@ export interface IVRAField {
 
 export interface IVRAModuleCallbacks<T> {
   onAdd?: (data: T[], item: any) => void;
-  onEdit?: (
-    data: T[],
-    item: T,
-    prevItem: T,
-  ) => void;
+  onEdit?: (data: T[], item: T, prevItem: T) => void;
   onDelete?: (data: T[], item: T) => void;
 }
 
@@ -66,8 +62,8 @@ export interface IVRAError {
 }
 
 export interface IVRAReducerState {
-  VRAProps: IVRAProps | null;
-  modules: IVRAModuleProps<any>[];
+  VRAProps: IVRA | null;
+  modules: IVRAModule<any>[];
   menu: {
     currentModule: string;
   };

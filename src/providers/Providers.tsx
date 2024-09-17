@@ -2,13 +2,13 @@ import React from "react";
 import { VRAProvider } from "@/store/VRAContext";
 import { NextUIProvider } from "@nextui-org/react";
 import { SnackbarProvider } from "notistack";
-import { IVRAProps } from "@/@types/VinzeAdminPanel.types";
+import { IVRA } from "@/@types/VRA.types";
 const Providers = ({
   children,
   VRAProps,
 }: {
   children: React.ReactNode;
-  VRAProps: IVRAProps;
+  VRAProps: IVRA;
 }) => {
   return (
     <VRAProvider VRAProps={VRAProps}>
