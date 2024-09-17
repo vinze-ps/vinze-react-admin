@@ -1,5 +1,4 @@
 import React, {
-  useCallback,
   useContext,
   useState,
 } from "react";
@@ -20,7 +19,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
 } from "@/components/ui/form";
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -29,7 +27,7 @@ import { z } from "zod"
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
-  password: z.string().min(6).max(50).regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/),
+  password: z.string().min(6).max(50).regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, "Password must contain at least one letter and one number"),
 })
 
 const Login = () => {
@@ -47,7 +45,7 @@ const Login = () => {
     },
   })
 
-  const handleSubmit = useCallback(
+  const handleSubmit =
     (values: z.infer<typeof formSchema>) => {
       setLoadingLogin(true);
       VRAProps?.auth
@@ -55,18 +53,16 @@ const Login = () => {
         .then((result) => {
           if (!result.status) setLoadingLogin(false);
         });
-    },
-    [VRAProps?.auth],
-  );
+    };
 
-  const handleClickLoginGoogle = useCallback(() => {
+  const handleClickLoginGoogle = () => {
     setLoadingLoginGoogle(true);
     VRAProps?.auth
       ?.onSubmit("GOOGLE", { username: form.getValues("username"), password: form.getValues("password") })
       .then((result) => {
         if (!result.status) setLoadingLoginGoogle(false);
       });
-  }, [VRAProps?.auth]);
+  };
 
   return (
     <div className="left-0 top-0 fixed w-[100vw] h-[100vh] flex flex-col justify-center items-center bg-[var(--vra-black)]">
@@ -129,13 +125,14 @@ const Login = () => {
                     <FormControl>
                       <Input
                         {...field}
+                        isInvalid={!!form.formState.errors.username?.message}
+                        errorMessage={form.formState.errors.username?.message}
                         placeholder={"Username"}
                         isTransparent
                         size={"lg"}
                         required
                       />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -147,6 +144,8 @@ const Login = () => {
                       <FormControl>
                         <Input
                           {...field}
+                          isInvalid={!!form.formState.errors.password?.message}
+                          errorMessage={form.formState.errors.password?.message}
                           size={"lg"}
                           placeholder={"Password"}
                           isTransparent
@@ -173,7 +172,6 @@ const Login = () => {
                           required
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
               />
@@ -195,7 +193,7 @@ const Login = () => {
             size={"lg"}
             color="primary"
           >
-            Continue with login
+            Continue with credentials
           </Button>}
         </CardBody>
       </Card>

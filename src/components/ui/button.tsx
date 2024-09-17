@@ -1,9 +1,10 @@
 import { Button as ButtonNEXT, ButtonProps } from "@nextui-org/react";
 
 import { cn } from "@/lib/utils";
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
+import {RoundSpinner} from "@/components/ui/spinner.tsx";
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps & {isTransparent?: boolean}>(({ isTransparent, ...props }, ref) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps & {isTransparent?: boolean}>(({ className, isLoading, isTransparent, ...props }, ref) => {
   return (
     <ButtonNEXT
       ref={ref}
@@ -11,7 +12,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps & {isTransparent?: bool
       size="md"
       variant={"flat"}
       {...props}
-      className={cn("text-sm", isTransparent ? "!bg-opacity-20 bg-zinc-600 data-[hover=true]:bg-zinc-400 group-data-[focus=true]:bg-zinc-500" : "", props.className ?? "")}
+      startContent={isLoading ? <RoundSpinner size={"xs"}/> : props.startContent}
+      className={cn("text-sm", isTransparent ? "!bg-opacity-20 bg-zinc-600 data-[hover=true]:bg-zinc-400 group-data-[focus=true]:bg-zinc-500" : "", className ?? "")}
     />
   );
 });

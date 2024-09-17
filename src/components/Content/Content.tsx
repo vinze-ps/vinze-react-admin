@@ -61,12 +61,12 @@ const Content = React.memo(() => {
         {/*    )}*/}
         {/*  </Card>*/}
         {/*))}*/}
-        {currentModule && (
-          <DisplayDefault
-            dispatchDialogAddEdit={dispatchDialogAddEdit}
-            currentModule={currentModule}
-          />
-        )}
+        {/*{currentModule && (*/}
+        {/*  <DisplayDefault*/}
+        {/*    dispatchDialogAddEdit={dispatchDialogAddEdit}*/}
+        {/*    currentModule={currentModule}*/}
+        {/*  />*/}
+        {/*)}*/}
         {/* {currentModule === "DASHBOARD" && <Dashboard />}
       {currentModule === "BLOG" && !!cards.find((m) => m.name === "BLOG") && <Blog />}
       {currentModule === "MEDIA" && !!cards.find((m) => m.name === "MEDIA") && (

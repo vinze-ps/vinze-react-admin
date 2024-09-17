@@ -17,7 +17,7 @@ const Input = forwardRef<HTMLInputElement, InputProps & {isTransparent?: boolean
         input: cn("text-sm", props.classNames?.input ?? ""),
         inputWrapper: cn(
           "border-none",
-          isTransparent ? "!bg-opacity-20 bg-zinc-600 data-[hover=true]:bg-zinc-400 group-data-[focus=true]:bg-zinc-500" : "",
+          isTransparent ? `!bg-opacity-20 bg-zinc-600 data-[hover=true]:bg-zinc-400 group-data-[focus=true]:bg-zinc-500 ${props.isInvalid ? "border-solid" : ""}` : "",
           props.classNames?.inputWrapper ?? "",
         ),
       }}
