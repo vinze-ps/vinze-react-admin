@@ -1,3 +1,5 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { Button, Chip } from "@nextui-org/react";
 import { DataTableColumnHeader } from "@/components/ui/data-table";
@@ -103,3 +105,7 @@ export const getVRAModulesColumns = (
       }),
   ] as ColumnDef<any>[];
 };
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}

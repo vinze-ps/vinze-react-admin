@@ -86,19 +86,6 @@ export type TVRADialogAddEditAction =
 
 export type TVRAModuleContentType = "DATA_TABLE" | "ADD" | "EDIT" | "DELETE";
 
-export type TVRAModuleConstants = Record<
-  string,
-  {
-    navigation: { icon: React.JSX.Element; text: string; path: string };
-    texts: Partial<
-      Record<
-        TVRAModuleContentType,
-        { title: string; description: string; addNew?: string }
-      >
-    >;
-  }
->;
-
 // export interface IVRAModuleSettings {
 //   navigation: { text: React.ReactNode; icon: React.ReactNode; path: string };
 //   texts: Partial<

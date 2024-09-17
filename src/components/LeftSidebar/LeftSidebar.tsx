@@ -9,7 +9,6 @@ import {
   ListboxItem,
 } from "@nextui-org/react";
 import { VRAContext } from "@/store/VRAContext";
-import VRAModulesConstants from "@/constants/VRAModulesConstants";
 import { cn } from "@/lib/utils";
 
 const LeftSidebar = () => {
@@ -28,8 +27,6 @@ const LeftSidebar = () => {
       })),
     [dispatchVRA, modules, currentModule],
   );
-
-  console.log(modules);
 
   return (
     <div className="w-full max-w-[200px] p-3 items-center text-[var(--vra-text-primary)] flex flex-col justify-between h-full rounded-xl border-[var(--vra-background-tertiary)] bg-default-50 flex-shrink-0">
@@ -108,9 +105,9 @@ const LeftSidebar = () => {
               classNames={{
                 title: "text-xs",
               }}
-              startContent={VRAModulesConstants[listItem.name]?.navigation.icon}
+              // startContent={VRAModulesConstants[listItem.name]?.navigation.icon}
             >
-              {VRAModulesConstants[listItem.name]?.navigation.text}
+              {/*{VRAModulesConstants[listItem.name]?.navigation.text}*/}
             </ListboxItem>
           )}
         </Listbox>
