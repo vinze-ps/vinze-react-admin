@@ -13,20 +13,20 @@ import VRAModulesConstants from "@/constants/VRAModulesConstants";
 import { cn } from "@/lib/utils";
 
 const LeftSidebar = () => {
-  const { state, dispatch } = useContext(VRAContext);
+  const { state, dispatchVRA } = useContext(VRAContext);
   const { modules, auth }: IVRAProps = state.VRAProps!;
   const { onLogout, userData } = auth;
-  const { currentModuleType } = state.menu;
+  const { currentModule } = state.menu;
   const listItems = useMemo(
     () =>
       (Object.keys(modules) as TVRAModuleType[]).map((type) => ({
         ...modules[type],
         type,
-        className: `${currentModuleType === type ? "bg-default text-[var(--vra-text-primary)]" : ""}`,
+        className: `${currentModule === type ? "bg-default text-[var(--vra-text-primary)]" : ""}`,
         onClick: () =>
-          dispatch({ type: "SET_CURRENT_MODULE_TYPE", payload: type }),
+          dispatchVRA({ type: "SET_CURRENT_MODULE", payload: type }),
       })),
-    [dispatch, modules, currentModuleType],
+    [dispatchVRA, modules, currentModule],
   );
 
   return (
@@ -68,7 +68,7 @@ const LeftSidebar = () => {
           >
             <TabList
               onChange={(_, value) =>
-                dispatch(
+                dispatchVRA(
                   appActions.setStateBasic({
                     keyName: "menu",
                     value: { currentCategory: value },
@@ -91,7 +91,7 @@ const LeftSidebar = () => {
           items={listItems}
           selectionMode="single"
           hideSelectedIcon
-          selectedKeys={[currentModuleType]}
+          selectedKeys={[currentModule]}
           className={"mt-4"}
         >
           {(listItem) => (

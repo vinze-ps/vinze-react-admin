@@ -1,17 +1,17 @@
 import {
   IVRAReducerAction,
   IVRAReducerState,
-  TVRAModuleType,
 } from "@/@types/VinzeAdminPanel.types";
 
 export const initialVRAState: IVRAReducerState = {
   VRAProps: null,
+  modules: [],
   menu: {
-    currentModuleType:
+    currentModule:
       (typeof window !== "undefined" &&
         (localStorage.getItem(
           "vra-menu-current-module-type",
-        ) as TVRAModuleType)) ||
+        ))) ||
       "DASHBOARD",
   },
 };
@@ -21,7 +21,7 @@ export const VRAReducer = (
   action: IVRAReducerAction,
 ): IVRAReducerState => {
   switch (action.type) {
-    case "SET_CURRENT_MODULE_TYPE":
+    case "SET_CURRENT_MODULE":
       typeof window !== "undefined" &&
         localStorage.setItem(
           "vra-menu-current-module-type",
@@ -29,8 +29,12 @@ export const VRAReducer = (
         );
       return {
         ...state,
-        menu: { ...state.menu, currentModuleType: action.payload },
+        menu: { ...state.menu, currentModule: action.payload },
       };
+      case "REGISTER_MODULE":
+      return { ...state, modules: state.modules.find((module) => module.name === action.payload.name)
+          ? state.modules.map((module) => (module.name === action.payload.name ? action.payload : module))
+          : [...state.modules, action.payload] };
     case "SET_VRA_PROPS":
       return { ...state, VRAProps: action.payload };
     default:

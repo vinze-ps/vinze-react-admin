@@ -1,6 +1,5 @@
 import React, { useContext, useReducer } from "react";
 import { VRAContext } from "@/store/VRAContext";
-import { DisplayDefault } from "./cards/DataTableCard";
 import DialogAddEdit from "../../components/dialogs/DialogAddEdit";
 import {
   IVRADialogAddEditState,
@@ -28,9 +27,9 @@ const Content = React.memo(() => {
 
   if (!state.VRAProps) return null;
 
-  const { currentModuleType } = state.menu;
+  const { currentModule } = state.menu;
   const { modules }: IVRAProps = state.VRAProps;
-  const currentModule = modules[currentModuleType];
+  const currentModule = modules[currentModule];
 
   return (
     <>

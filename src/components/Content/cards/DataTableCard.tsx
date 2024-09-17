@@ -3,7 +3,6 @@ import { DataTable } from "@/components/ui/data-table";
 import { getVRAModulesColumns } from "@/constants/VRAModulesColumns";
 import VRAModulesConstants from "../../../constants/VRAModulesConstants";
 import {
-  IVRAModule,
   TVRADialogAddEditAction,
 } from "@/@types/VinzeAdminPanel.types";
 import { VRAContext } from "@/store/VRAContext";
@@ -11,16 +10,16 @@ import { Plus } from "lucide-react";
 import {Button, Card, CardBody, CardHeader} from "@nextui-org/react";
 
 const DisplayDefault = ({
-  currentModule,
+  module,
   dispatchDialogAddEdit,
 }: {
-  currentModule: IVRAModule;
+  module: IVRAModule;
   dispatchDialogAddEdit: React.Dispatch<TVRADialogAddEditAction>;
 }) => {
   const { state } = useContext(VRAContext);
-  const { currentModuleType } = state.menu;
+  const { currentModule } = state.menu;
   const moduleConstants =
-    VRAModulesConstants[currentModuleType]?.texts.DATA_TABLE;
+    VRAModulesConstants[currentModule]?.texts.DATA_TABLE;
 
   const columns = useMemo(
     () =>
@@ -31,7 +30,7 @@ const DisplayDefault = ({
           console.log(row.original);
         },
       }),
-    [currentModule.data, dispatchDialogAddEdit],
+    [currentModule.fields, dispatchDialogAddEdit],
   );
 
   return (

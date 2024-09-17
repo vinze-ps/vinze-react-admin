@@ -11,10 +11,10 @@ import {
 
 const initialVRAContext: {
   state: IVRAReducerState;
-  dispatch: React.Dispatch<IVRAReducerAction>;
+  dispatchVRA: React.Dispatch<IVRAReducerAction>;
 } = {
   state: initialVRAState,
-  dispatch: () => {},
+  dispatchVRA: () => {},
 };
 
 const VRAContext = createContext(initialVRAContext);
@@ -24,17 +24,17 @@ const VRAProvider = (props: {
   VRAProps: IVRAProps;
 }) => {
   const { VRAProps } = props;
-  const [state, dispatch] = useReducer(VRAReducer, initialVRAState);
+  const [state, dispatchVRA] = useReducer(VRAReducer, initialVRAState);
 
   useEffect(() => {
-    dispatch({
+    dispatchVRA({
       type: "SET_VRA_PROPS",
       payload: VRAProps,
     });
-  }, [dispatch, VRAProps]);
+  }, [dispatchVRA, VRAProps]);
 
   return (
-    <VRAContext.Provider value={{ state, dispatch }}>
+    <VRAContext.Provider value={{ state, dispatchVRA }}>
       {state.VRAProps ? props.children : null}
     </VRAContext.Provider>
   );

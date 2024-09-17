@@ -1,14 +1,15 @@
 import React from "react";
 
 export interface IVRAProps {
-  callbacks: IVRACallbacks;
-  modules: Partial<Record<TVRAModuleType, IVRAModule>>;
   auth: IVRAAuth;
   config: IVRAConfig;
+  children?: React.ReactNode;
 }
 
-export interface IVRAModule {
-  data: any[];
+export interface IVRAModuleProps<T> {
+  name: string;
+  data: T[];
+  callbacks: IVRAModuleCallbacks<T>;
   fields: Partial<Record<string, IVRAField>>;
 }
 
@@ -24,38 +25,19 @@ export interface IVRAField {
   validationMessage?: string;
 }
 
-export interface IVRACallbacks {
-  collection: IVRACollectionCallbacks;
-}
-
-export interface IVRACollectionCallbacks {
-  onAdd?: (type: TVRAModuleType, data: any[], item: any) => void;
+export interface IVRAModuleCallbacks<T> {
+  onAdd?: (data: T[], item: any) => void;
   onEdit?: (
-    type: TVRAModuleType,
-    data: any[],
-    item: any,
-    prevItem: any,
+    data: T[],
+    item: T,
+    prevItem: T,
   ) => void;
-  onDelete?: (type: TVRAModuleType, data: any[], item: any) => void;
-}
-
-export interface IVRASettingsCallbacks {
-  onSave?: (data: any[], item: any) => void;
+  onDelete?: (data: T[], item: T) => void;
 }
 
 export interface IVRAConfig {
   companyName: string;
 }
-
-export type TVRAModuleType =
-  | "DASHBOARD"
-  | "BLOG"
-  | "MEDIA"
-  | "COMMENTS"
-  | "USERS"
-  | "SHOP"
-  | "NOTIFICATIONS"
-  | "SETTINGS";
 
 export interface IVRAUserCredentials {
   username: string;
@@ -85,13 +67,14 @@ export interface IVRAError {
 
 export interface IVRAReducerState {
   VRAProps: IVRAProps | null;
+  modules: IVRAModuleProps<any>[];
   menu: {
-    currentModuleType: TVRAModuleType;
+    currentModule: string;
   };
 }
 
 export interface IVRAReducerAction {
-  type: "SET_VRA_PROPS" | "SET_CURRENT_MODULE_TYPE";
+  type: "SET_VRA_PROPS" | "REGISTER_MODULE" | "SET_CURRENT_MODULE";
   payload: any;
 }
 
@@ -108,7 +91,7 @@ export type TVRADialogAddEditAction =
 export type TVRAModuleContentType = "DATA_TABLE" | "ADD" | "EDIT" | "DELETE";
 
 export type TVRAModuleConstants = Record<
-  TVRAModuleType,
+  string,
   {
     navigation: { icon: React.JSX.Element; text: string; path: string };
     texts: Partial<

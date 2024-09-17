@@ -1,9 +1,10 @@
-import { StrictMode } from 'react'
+import {StrictMode, useMemo} from 'react'
 import { createRoot } from 'react-dom/client'
 import VinzeAdminPanel from "@/VinzeAdminPanel";
-import { IVRAError, IVRAUserData } from "@/@types/VinzeAdminPanel.types";
+import {IVRAError, IVRAModuleCallbacks, IVRAUserData} from "@/@types/VinzeAdminPanel.types";
 import useLocalStorage from "use-local-storage";
 import { useState } from "react";
+import VRAModule from "@/VRAModule.tsx";
 
 const initialBlogData = [
   {
@@ -47,32 +48,6 @@ const App = () => {
 
   return (
     <VinzeAdminPanel
-      callbacks={{
-        collection: {
-          onAdd: (type, data, item) => {
-            console.log("onAdd", type, data, item);
-          },
-          onEdit: (type, data, item, prevItem) => {
-            console.log("onEdit", type, data, item, prevItem);
-          },
-          onDelete: (type, data, item) => {
-            console.log("onDelete", type, data, item);
-          },
-        },
-      }}
-      modules={{
-        BLOG: {
-          data: blogData,
-          fields: {
-            id: { primary: true },
-            title: { type: "TEXT", label: "Title" },
-            badges: { type: "TAGS", label: "Badges" },
-            content: { type: "TEXTAREA", label: "Content" },
-            date: { type: "DATE", label: "Date" },
-            imageSrc: { type: "IMAGE", label: "Image" },
-          },
-        },
-      }}
       config={{ companyName: "Testowa" }}
       auth={{
         userData,
@@ -84,7 +59,30 @@ const App = () => {
         },
         onLogout: () => setUserData(null),
       }}
-    />
+    >
+      <VRAModule name={"BLOG"} callbacks={useMemo(() => ({
+        onAdd: (data, item) => {
+          console.log("onAdd", data, item);
+          setBlogData([...data, item]);
+        },
+        onEdit: (data, item, prevItem) => {
+          console.log("onEdit", data, item, prevItem);
+          setBlogData(data.map((i) => (i.id === item.id ? item : i)));
+        },
+        onDelete: (data, item) => {
+          console.log("onDelete", data, item);
+          setBlogData(data.filter((i) => i.id !== item.id));
+        },
+      } as IVRAModuleCallbacks<typeof blogData[0]>), [])
+      } data={useMemo(() => blogData,[blogData])} fields={useMemo(() => ({
+        id: { primary: true },
+        title: { type: "TEXT", label: "Title" },
+        badges: { type: "TAGS", label: "Badges" },
+        content: { type: "TEXTAREA", label: "Content" },
+        date: { type: "DATE", label: "Date" },
+        imageSrc: { type: "IMAGE", label: "Image" },
+      }), [])}/>
+    </VinzeAdminPanel>
   );
 };
 
