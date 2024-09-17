@@ -7,10 +7,24 @@ export interface IVRA {
 }
 
 export interface IVRAModule<T> {
-  name: string;
+  config: IVRAModuleConfig;
   data: T[];
   callbacks: IVRAModuleCallbacks<T>;
   fields: Partial<Record<string, IVRAField>>;
+}
+
+export interface IVRAModuleConfig {
+  name: string;
+  navigation: { text: React.ReactNode; icon: React.ReactNode; path: string };
+  texts: Partial<
+    Record<
+      TVRAModuleContentType,
+      {
+        title: string;
+        description: string;
+      }
+    >
+  >;
 }
 
 export interface IVRAField {
