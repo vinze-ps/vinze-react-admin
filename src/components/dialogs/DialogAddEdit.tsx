@@ -4,16 +4,8 @@ import {
   IVRAModule,
   TVRADialogAddEditAction,
 } from "@/@types/VRA.types";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
 import { Input } from "../ui/input";
-import { Button } from "@nextui-org/react";
+import {Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader} from "@nextui-org/react";
 
 const DialogAddEdit = ({
   dispatchDialogAddEdit,
@@ -25,30 +17,27 @@ const DialogAddEdit = ({
   module: IVRAModule<any>;
 }) => {
   return (
-    <Dialog
-      open={dialogAddEditState.open}
+    <Modal
+      portalContainer={document.querySelector(".vra-portal-container")!}
+      isOpen={dialogAddEditState.open}
       onOpenChange={(open) =>
         dispatchDialogAddEdit({ type: open ? "OPEN" : "CLOSE" })
       }
     >
-      <DialogContent className="sm:max-w-[768px] border-neutral-700">
-        <DialogHeader>
-          <DialogTitle>
-            {dialogAddEditState.mode === "ADD" ? "Add" : "Edit"}
-          </DialogTitle>
-          <DialogDescription>
-            {dialogAddEditState.mode === "ADD"
-              ? "In this place you can add a new item."
-              : "You're currently editing an existing item."}
-          </DialogDescription>
-        </DialogHeader>
+      <ModalContent className="sm:max-w-[768px] border-neutral-700">
+        {(onClose) => (
+          <>
+        <ModalHeader>
+            {dialogAddEditState.mode === "ADD" ? "New record" : "Edit record"}
+        </ModalHeader>
+            <ModalBody>
         <div className="grid grid-cols-2 gap-4 py-4">
           {Object.keys(module.fields).map((field) => {
             if (module.fields[field]?.primary) return null;
             return (
               <Input
                 key={field}
-                placeholder={`Enter ${module.fields[field]?.label}...`}
+                placeholder={`Enter value...`}
                 // onValueChange={(value) => {
                 // dispatchForm({ type: "SET_USERNAME", value })
                 // }}
@@ -59,14 +48,16 @@ const DialogAddEdit = ({
               />
             );
           })}
-        </div>
-        <DialogFooter>
-          <Button className={"rounded-full"} size={"sm"} type="submit">
-            {dialogAddEditState.mode === "ADD" ? "Add new" : "Save changes"}
+        </div></ModalBody>
+        <ModalFooter>
+          <Button className={"rounded-full"} type="submit">
+            {dialogAddEditState.mode === "ADD" ? "Accept" : "Save changes"}
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </ModalFooter>
+        </>
+        )}
+      </ModalContent>
+    </Modal>
   );
 };
 

@@ -5,6 +5,7 @@ import {
   IVRADialogAddEditState,
   TVRADialogAddEditAction,
 } from "@/@types/VRA.types";
+import {DisplayDefault} from "@/components/Content/cards/DataTableCard.tsx";
 
 const Content = React.memo(() => {
   const [dialogAddEditState, dispatchDialogAddEdit] = useReducer(
@@ -23,12 +24,9 @@ const Content = React.memo(() => {
     { open: false, mode: "ADD", originalItem: null } as IVRADialogAddEditState,
   );
   const { state } = useContext(VRAContext);
-
-  if (!state.VRAProps) return null;
-
   const { modules, menu } = state;
   const { currentModule } = menu;
-  const module = modules[currentModule];
+  const module = modules.find((m) => m.config.name === currentModule);
 
   return (
     <>
@@ -39,7 +37,7 @@ const Content = React.memo(() => {
           module={module}
         />
       )}
-      <div className="ps-4 relative flex-1 overflow-auto">
+      <div className="p-4 relative flex-1 overflow-auto">
         {/*<div className="absolute w-full h-full opacity-[0.15] left-0 top-0"></div>*/}
         {/*{currentModule?.config.content.map((c, index) => (*/}
         {/*  <Card className="w-full border-none p-0" key={index}>*/}
@@ -59,12 +57,12 @@ const Content = React.memo(() => {
         {/*    )}*/}
         {/*  </Card>*/}
         {/*))}*/}
-        {/*{currentModule && (*/}
-        {/*  <DisplayDefault*/}
-        {/*    dispatchDialogAddEdit={dispatchDialogAddEdit}*/}
-        {/*    currentModule={currentModule}*/}
-        {/*  />*/}
-        {/*)}*/}
+        {module && (
+          <DisplayDefault
+            dispatchDialogAddEdit={dispatchDialogAddEdit}
+            module={module}
+          />
+        )}
         {/* {currentModule === "DASHBOARD" && <Dashboard />}
       {currentModule === "BLOG" && !!cards.find((m) => m.name === "BLOG") && <Blog />}
       {currentModule === "MEDIA" && !!cards.find((m) => m.name === "MEDIA") && (

@@ -65,7 +65,10 @@ const App = () => {
       }}
     >
       <VRAModule
-        name={"BLOG"}
+        config={{
+          name: "BLOG",
+          friendlyName: "Blog",
+        }}
         callbacks={useMemo(
           () =>
             ({
@@ -81,10 +84,10 @@ const App = () => {
                 console.log("onDelete", data, item);
                 setBlogData(data.filter((i) => i.id !== item.id));
               },
-            }) as IVRAModuleCallbacks<(typeof blogData)[0]>,
+            }),
           [],
-        )}
-        data={useMemo(() => blogData, [blogData])}
+        ) as IVRAModuleCallbacks<(typeof blogData[0])>}
+        data={useMemo(() => blogData, [blogData]) as (typeof blogData)}
         fields={useMemo(
           () => ({
             id: { primary: true },

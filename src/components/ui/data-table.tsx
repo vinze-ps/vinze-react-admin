@@ -365,10 +365,7 @@ export function DataTableToolbar<TData>({
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
-          classNames={{
-            inputWrapper: "border-neutral-700",
-          }}
-          className="w-[150px] lg:w-[250px]"
+          className={"max-w-[15rem]"}
         />
         {/*{table.getColumn("status") && (*/}
         {/*  <DataTableFacetedFilter*/}

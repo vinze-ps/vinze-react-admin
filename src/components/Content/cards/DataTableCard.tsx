@@ -3,7 +3,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { IVRAModule, TVRADialogAddEditAction } from "@/@types/VRA.types";
 import { VRAContext } from "@/store/VRAContext";
 import { Plus } from "lucide-react";
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { getVRAModulesColumns } from "@/lib/utils.tsx";
 
 const DisplayDefault = ({
@@ -29,11 +29,10 @@ const DisplayDefault = ({
   );
 
   return (
-    <Card className={"border-none bg-default-50 rounded-xl"}>
-      <CardHeader className={"p-4 flex-row items-center justify-between"}>
+    <>
         <div className={"flex gap-2 items-center"}>
-          {/*<h1 className={"text-xl text-white"}>{moduleConstants?.title}</h1>*/}
-          {/*<p className={"!mt-0 text-md"}>{moduleConstants?.description}</p>*/}
+          <h1 className={"text-xl text-white"}>{module.config.friendlyName || "Collection"}</h1>
+          {/*<p className={"!mt-0 text-md"}>*/}
         </div>
         <Button
           className={"bg-primary text-foreground"}
@@ -43,13 +42,9 @@ const DisplayDefault = ({
           }}
         >
           <Plus size={"1rem"} className={"me-1"} />
-          {/*{moduleConstants?.addNew}*/}
+          New record
         </Button>
-      </CardHeader>
-      <CardBody className={"p-4"}>
-        <DataTable columns={columns} data={module.data} />
-      </CardBody>
-    </Card>
+        <DataTable columns={columns} data={module.data} /></>
   );
 };
 

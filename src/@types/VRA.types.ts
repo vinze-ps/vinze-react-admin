@@ -15,8 +15,9 @@ export interface IVRAModule<T> {
 
 export interface IVRAModuleConfig {
   name: string;
-  navigation: { text: React.ReactNode; icon: React.ReactNode; path: string };
-  texts: Partial<
+  friendlyName?: string;
+  icon?: React.ReactNode;
+  texts?: Partial<
     Record<
       TVRAModuleContentType,
       {

@@ -24,9 +24,9 @@ const VinzeReactAdmin = (props: IVRA) => {
         <div className={`main-container`}>
           {props.auth.userData !== null ? (
             <>
-              <div className="flex flex-row h-full w-full p-4 bg-background">
+              <div className="flex flex-row h-full w-full bg-background">
                 <LeftSidebar />
-                {/*<Content />*/}
+                <Content />
               </div>
             </>
           ) : (

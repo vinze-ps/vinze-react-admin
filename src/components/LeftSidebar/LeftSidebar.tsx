@@ -10,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import { VRAContext } from "@/store/VRAContext";
 import { cn } from "@/lib/utils";
+import {Database02, LogOut01} from "@untitled-ui/icons-react";
 
 const LeftSidebar = () => {
   const { state, dispatchVRA } = useContext(VRAContext);
@@ -19,69 +20,19 @@ const LeftSidebar = () => {
   const { currentModule } = menu;
   const listItems = useMemo(
     () =>
-      modules.map((module) => ({
+      modules.map((module, index) => ({
         ...module,
-        className: `${currentModule === module.name ? "bg-default text-[var(--vra-text-primary)]" : ""}`,
+        index,
+        className: `${currentModule === module.config.name ? "bg-default text-[var(--vra-text-primary)]" : ""}`,
         onClick: () =>
-          dispatchVRA({ type: "SET_CURRENT_MODULE", payload: module.name }),
+          dispatchVRA({ type: "SET_CURRENT_MODULE", payload: module.config.name }),
       })),
     [dispatchVRA, modules, currentModule],
   );
 
   return (
-    <div className="w-full max-w-[200px] p-3 items-center text-[var(--vra-text-primary)] flex flex-col justify-between h-full rounded-xl border-[var(--vra-background-tertiary)] bg-default-50 flex-shrink-0">
+    <div className="w-full max-w-[200px] p-3 items-center text-[var(--vra-text-primary)] flex flex-col justify-between h-full border-[var(--vra-background-tertiary)] bg-default-50 flex-shrink-0">
       <div className="h-full w-full flex flex-col justify-start">
-        {/* <TabContext value={currentCategory}>
-          <Box
-            sx={{
-              marginBottom: "1rem",
-              backgroundColor: "var(--vra-background-secondary)",
-              borderRadius: "0.5rem",
-              overflow: "hidden",
-              padding: "0.25rem",
-
-              "& .MuiTabs-root": {
-                minHeight: "unset !important",
-              },
-
-              "& .MuiTab-root": {
-                color: "var(--vra-text-primary)",
-                zIndex: 1,
-                borderRadius: "0px !important",
-                padding: "0.5rem 0",
-                minHeight: "unset !important",
-                textTransform: "none",
-
-                "&.Mui-disabled": {
-                  color: "var(--vra-text-quaternary)",
-                },
-              },
-
-              "& .MuiTabs-indicator": {
-                height: "100%",
-                backgroundColor: "var(--vra-background-tertiary)",
-                minHeight: "unset !important",
-                borderRadius: "0.35rem",
-              },
-            }}
-          >
-            <TabList
-              onChange={(_, value) =>
-                dispatchVRA(
-                  appActions.setStateBasic({
-                    keyName: "menu",
-                    value: { currentCategory: value },
-                    saveToLocalStorage: ["currentCategory"],
-                  })
-                )
-              }
-              aria-label="lab API tabs example"
-            >
-              <Tab sx={{ width: "50%" }} label="Zarządzanie" value="" />
-              <Tab disabled sx={{ width: "50%" }} label="Moja strona" value="TEST" />
-            </TabList>
-          </Box>
-        </TabContext> */}
         <div className={"p-3"}>
           <img src={Logo} alt="logo" className="w-[4rem] h-auto" />
         </div>
@@ -95,19 +46,19 @@ const LeftSidebar = () => {
         >
           {(listItem) => (
             <ListboxItem
-              key={listItem.name}
-              textValue={listItem.name}
+              key={listItem.config.name}
+              textValue={listItem.config.name}
               onClick={listItem.onClick}
               className={cn(
                 `text-[var(--vra-text-tertiary)]`,
                 listItem.className,
               )}
               classNames={{
-                title: "text-xs",
+                title: "text-[0.75rem]",
               }}
-              // startContent={VRAModulesConstants[listItem.name]?.navigation.icon}
+              startContent={listItem.config.icon || <Database02 width={16} height={16} />}
             >
-              {/*{VRAModulesConstants[listItem.name]?.navigation.text}*/}
+              {listItem.config.friendlyName || `Collection ${listItem.index + 1}`}
             </ListboxItem>
           )}
         </Listbox>
@@ -117,7 +68,7 @@ const LeftSidebar = () => {
           >
             <DropdownTrigger>
               <div
-                className={`hover:bg-default cursor-pointer rounded-lg w-full mb-[1rem] flex items-center px-[1rem] py-[0.25rem]`}
+                className={`hover:bg-default cursor-pointer rounded-3xl w-full mb-1 flex items-center p-1`}
               >
                 <div
                   className={
@@ -136,13 +87,9 @@ const LeftSidebar = () => {
             </DropdownTrigger>
             <DropdownMenu aria-label="User menu">
               <ListboxItem
-                // startContent={
-                //   <IonIconCustom
-                //     size="small"
-                //     name="log-out-outline"
-                //     color="var(--vra-red)"
-                //   />
-                // }
+                startContent={
+                  <LogOut01 width={16} height={16} />
+                }
                 onClick={onLogout}
                 key="Logout"
                 className="text-danger"
@@ -152,9 +99,6 @@ const LeftSidebar = () => {
               </ListboxItem>
             </DropdownMenu>
           </Dropdown>
-          {/*<div className="text-xs text-[var(--vra-text-quaternary)] ps-[1rem] pb-[0.5rem]">*/}
-          {/*  version {packageJson.version}*/}
-          {/*</div>*/}
         </div>
       </div>
     </div>

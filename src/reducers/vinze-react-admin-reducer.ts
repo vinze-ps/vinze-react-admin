@@ -30,10 +30,10 @@ export const VRAReducer = (
       return {
         ...state,
         modules: state.modules.find(
-          (module) => module.name === action.payload.name,
+          (module) => module.config.name === action.payload.config.name,
         )
           ? state.modules.map((module) =>
-              module.name === action.payload.name ? action.payload : module,
+              module.config.name === action.payload.config.name ? action.payload : module,
             )
           : [...state.modules, action.payload],
       };
