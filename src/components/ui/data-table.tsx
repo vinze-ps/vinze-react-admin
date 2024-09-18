@@ -26,7 +26,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
-import { cn } from "@/lib/utils";
+import { cn, getVRAModulesColumns } from "@/lib/utils";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -71,7 +71,8 @@ import {
   CommandSeparator,
 } from "./command";
 import { Badge } from "./badge";
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
+import { useMemo } from "react";
 
 export const statuses = [
   {
@@ -514,6 +515,18 @@ export function DataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
+
+  // const columns = useMemo(
+  //   () =>
+  //     getVRAModulesColumns(module.fields, {
+  //       onEditRow: ({ row }) => {
+  //         dispatchDialogAddEdit({ type: "OPEN" });
+  //         dispatchDialogAddEdit({ type: "SET_MODE", payload: "EDIT" });
+  //         console.log(row.original);
+  //       },
+  //     }),
+  //   [module.fields, dispatchDialogAddEdit],
+  // );
 
   return (
     <div className="space-y-4">

@@ -1,6 +1,5 @@
 import { useContext, useMemo } from "react";
 import { IVRA } from "@/@types/VRA.types";
-import Logo from "@/assets/logo.svg";
 import {
   Dropdown,
   DropdownMenu,
@@ -10,7 +9,8 @@ import {
 } from "@nextui-org/react";
 import { VRAContext } from "@/store/VRAContext";
 import { cn } from "@/lib/utils";
-import {Database02, LogOut01} from "@untitled-ui/icons-react";
+import { Database02, LogOut01 } from "@untitled-ui/icons-react";
+import { Badge } from "@/components/ui/badge.tsx";
 
 const LeftSidebar = () => {
   const { state, dispatchVRA } = useContext(VRAContext);
@@ -23,26 +23,28 @@ const LeftSidebar = () => {
       modules.map((module, index) => ({
         ...module,
         index,
-        className: `${currentModule === module.config.name ? "bg-default text-[var(--vra-text-primary)]" : ""}`,
+        className: `${currentModule === module.config.name ? "bg-default text-foreground" : ""}`,
         onClick: () =>
-          dispatchVRA({ type: "SET_CURRENT_MODULE", payload: module.config.name }),
+          dispatchVRA({
+            type: "SET_CURRENT_MODULE",
+            payload: module.config.name,
+          }),
       })),
     [dispatchVRA, modules, currentModule],
   );
+  const module = modules.find((m) => m.config.name === currentModule);
 
   return (
-    <div className="w-full max-w-[200px] p-3 items-center text-[var(--vra-text-primary)] flex flex-col justify-between h-full border-[var(--vra-background-tertiary)] bg-default-50 flex-shrink-0">
+    <div className="w-full max-w-[240px] p-4 items-center flex flex-col justify-between h-full border-e-zinc-700 border-e-1 bg-default-50 flex-shrink-0">
       <div className="h-full w-full flex flex-col justify-start">
-        <div className={"p-3"}>
-          <img src={Logo} alt="logo" className="w-[4rem] h-auto" />
-        </div>
+        <p className={"text-xs font-semibold"}>Collections</p>
         <Listbox
           aria-label="Menu"
           items={listItems}
           selectionMode="single"
           hideSelectedIcon
           selectedKeys={[currentModule]}
-          className={"mt-4"}
+          className={"mt-2"}
         >
           {(listItem) => (
             <ListboxItem
@@ -50,15 +52,23 @@ const LeftSidebar = () => {
               textValue={listItem.config.name}
               onClick={listItem.onClick}
               className={cn(
-                `text-[var(--vra-text-tertiary)]`,
+                `text-[var(--vra-text-tertiary)] px-3 py-1.5`,
                 listItem.className,
               )}
               classNames={{
                 title: "text-[0.75rem]",
               }}
-              startContent={listItem.config.icon || <Database02 width={16} height={16} />}
+              startContent={
+                listItem.config.icon || <Database02 width={16} height={16} />
+              }
+              endContent={
+                <Badge className={"!bg-zinc-700"}>
+                  {module?.data?.length || 0}
+                </Badge>
+              }
             >
-              {listItem.config.friendlyName || `Collection ${listItem.index + 1}`}
+              {listItem.config.friendlyName ||
+                `Collection ${listItem.index + 1}`}
             </ListboxItem>
           )}
         </Listbox>
@@ -72,7 +82,7 @@ const LeftSidebar = () => {
               >
                 <div
                   className={
-                    "rounded-[2rem] p-[0.5rem] bg-purple-500 w-[2.15rem] h-[2.15rem] mr-[0.5rem] flex items-center justify-center"
+                    "rounded-[2rem] p-[0.5rem] bg-blue w-[2.15rem] h-[2.15rem] mr-[0.5rem] flex items-center justify-center"
                   }
                 >
                   {(userData?.name || "?")[0].toUpperCase()}
@@ -87,9 +97,7 @@ const LeftSidebar = () => {
             </DropdownTrigger>
             <DropdownMenu aria-label="User menu">
               <ListboxItem
-                startContent={
-                  <LogOut01 width={16} height={16} />
-                }
+                startContent={<LogOut01 width={16} height={16} />}
                 onClick={onLogout}
                 key="Logout"
                 className="text-danger"

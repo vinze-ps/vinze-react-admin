@@ -5,7 +5,7 @@ import {
   IVRADialogAddEditState,
   TVRADialogAddEditAction,
 } from "@/@types/VRA.types";
-import {DisplayDefault} from "@/components/Content/cards/DataTableCard.tsx";
+import { TableView } from "@/components/Content/views/TableView.tsx";
 
 const Content = React.memo(() => {
   const [dialogAddEditState, dispatchDialogAddEdit] = useReducer(
@@ -58,7 +58,7 @@ const Content = React.memo(() => {
         {/*  </Card>*/}
         {/*))}*/}
         {module && (
-          <DisplayDefault
+          <TableView
             dispatchDialogAddEdit={dispatchDialogAddEdit}
             module={module}
           />

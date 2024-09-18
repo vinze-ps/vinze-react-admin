@@ -6,6 +6,7 @@ import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
 import Content from "@/components/Content/Content";
 import Providers from "./providers/Providers";
 import { useEffect } from "react";
+import TopBar from "@/components/TopBar.tsx";
 // import "dayjs/locale/pl";
 
 const VinzeReactAdmin = (props: IVRA) => {
@@ -24,7 +25,8 @@ const VinzeReactAdmin = (props: IVRA) => {
         <div className={`main-container`}>
           {props.auth.userData !== null ? (
             <>
-              <div className="flex flex-row h-full w-full bg-background">
+              <TopBar />
+              <div className="flex flex-row h-full w-full bg-zinc-900">
                 <LeftSidebar />
                 <Content />
               </div>

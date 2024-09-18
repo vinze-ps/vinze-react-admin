@@ -7,7 +7,8 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: '#601EF9',
+                primary: {DEFAULT:'#601EF9'},
+                blue: {DEFAULT:'#237AFC'},
             },
             // borderRadius: {
             //     large: "24px",
