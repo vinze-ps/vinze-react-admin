@@ -19,8 +19,8 @@ const formSchema = z.object({
     .min(6)
     .max(50)
     .regex(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-      "Password must contain at least one letter and one number",
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+      "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
     ),
 });
 
@@ -60,7 +60,7 @@ const Login = () => {
 
   return (
     <div className="left-0 top-0 fixed w-[100vw] h-[100vh] flex flex-col justify-center items-center bg-[var(--vra-black)]">
-      <Card className="p-[1.25rem] max-w-[27.5rem] w-full z-[10] bg-background bg-opacity-60 backdrop-blur-lg rounded-3xl">
+      <Card className="p-[1.25rem] max-w-[27.5rem] w-full z-[10] bg-background bg-opacity-80 backdrop-blur-lg rounded-3xl">
         <CardHeader className="flex flex-col items-center text-center">
           {/*<Logo*/}
           {/*  style={{ width: "60px", height: "auto", marginBottom: "1.5rem" }}*/}

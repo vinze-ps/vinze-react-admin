@@ -36,6 +36,7 @@ export interface IVRAField {
   disabled?: boolean;
   hidden?: boolean;
   defaultValue?: any;
+  sortable?: boolean;
   validation?: (value: any) => boolean;
   validationMessage?: string;
 }

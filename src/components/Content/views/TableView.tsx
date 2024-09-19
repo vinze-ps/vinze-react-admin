@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, {useContext, useMemo} from "react";
 import { IVRAModule, TVRADialogAddEditAction } from "@/@types/VRA.types";
 import { VRAContext } from "@/store/VRAContext";
 import { ChevronDown, Plus } from "lucide-react";
@@ -15,64 +15,17 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
-  Chip,
-  User,
   Pagination,
   Selection,
-  ChipProps,
   SortDescriptor,
 } from "@nextui-org/react";
 import { DotsVertical, SearchMd } from "@untitled-ui/icons-react";
-
-const statusColorMap: Record<string, ChipProps["color"]> = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
-};
-
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
 
 const statusOptions = [
   { name: "Active", uid: "active" },
   { name: "Paused", uid: "paused" },
   { name: "Vacation", uid: "vacation" },
 ];
-
-const users = [
-  {
-    id: 1,
-    name: "Tony Reichert",
-    role: "CEO",
-    team: "Management",
-    status: "active",
-    age: "29",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    email: "tony.reichert@example.com",
-  },
-  {
-    id: 2,
-    name: "Zoey Lang",
-    role: "Tech Lead",
-    team: "Development",
-    status: "paused",
-    age: "25",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    email: "zoey.lang@example.com",
-  },
-];
-
-const columns = [
-  { name: "ID", uid: "id", sortable: true },
-  { name: "NAME", uid: "name", sortable: true },
-  { name: "AGE", uid: "age", sortable: true },
-  { name: "ROLE", uid: "role", sortable: true },
-  { name: "TEAM", uid: "team" },
-  { name: "EMAIL", uid: "email" },
-  { name: "STATUS", uid: "status", sortable: true },
-  { name: "ACTIONS", uid: "actions" },
-];
-
-type User = (typeof users)[0];
 
 const TableView = ({
   module,
@@ -84,19 +37,24 @@ const TableView = ({
   const { state } = useContext(VRAContext);
   const { currentModule } = state.menu;
 
+  const columns = useMemo(() => Object.keys(module.fields).map((fieldKey) => {
+    const field = module.fields[fieldKey]!;
+    return {
+      uid: fieldKey,
+      ...field,
+    };
+  }), [module.fields]);
+
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([]),
   );
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
-    new Set(INITIAL_VISIBLE_COLUMNS),
+    new Set(columns.map((column) => column.uid)),
   );
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
-    column: "age",
-    direction: "ascending",
-  });
+  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({});
 
   const [page, setPage] = React.useState(1);
 
@@ -108,27 +66,27 @@ const TableView = ({
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid),
     );
-  }, [visibleColumns]);
+  }, [columns, visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
     let filtered = [...module.data];
 
     if (hasSearchFilter) {
-      filtered = filtered.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
+      filtered = filtered.filter((item) =>
+        item.name.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     if (
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== statusOptions.length
     ) {
-      filtered = filtered.filter((user) =>
-        Array.from(statusFilter).includes(user.status),
+      filtered = filtered.filter((item) =>
+        Array.from(statusFilter).includes(item.status),
       );
     }
 
     return filtered;
-  }, [users, filterValue, statusFilter]);
+  }, [filterValue, hasSearchFilter, module.data, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -140,70 +98,78 @@ const TableView = ({
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: User, b: User) => {
-      const first = a[sortDescriptor.column as keyof User] as number;
-      const second = b[sortDescriptor.column as keyof User] as number;
+    return [...items].sort((a: any, b: any) => {
+      if (!sortDescriptor.column) return 0;
+      
+      const first = a[sortDescriptor.column] as number;
+      const second = b[sortDescriptor.column] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof User];
+  const renderCell = React.useCallback((item: any, columnKey: React.Key) => {
+    const cellValue = item[columnKey as string];
 
-    switch (columnKey) {
-      case "name":
+    switch (columns.find((column) => columnKey === column.uid)?.type) {
+      // case "DATE":
+      //   return (
+      //     <div className="flex flex-col">
+      //       <p className="text-bold text-small capitalize">{cellValue}</p>
+      //       <p className="text-bold text-tiny capitalize text-default-400">
+      //         {item.team}
+      //       </p>
+      //     </div>
+      //   );
+      // case "TAGS":
+      //   return (
+      //     <Chip
+      //       className="capitalize"
+      //       color={statusColorMap[item.status]}
+      //       size="sm"
+      //       variant="flat"
+      //     >
+      //       {cellValue}
+      //     </Chip>
+      //   );
+      // case "IMAGE":
+      //   return (
+      //     <div className="relative flex justify-end items-center gap-2">
+      //       <Dropdown>
+      //         <DropdownTrigger>
+      //           <Button isIconOnly size="sm" variant="light">
+      //             <DotsVertical className="text-default-300" />
+      //           </Button>
+      //         </DropdownTrigger>
+      //         <DropdownMenu>
+      //           <DropdownItem>View</DropdownItem>
+      //           <DropdownItem>Edit</DropdownItem>
+      //           <DropdownItem>Delete</DropdownItem>
+      //         </DropdownMenu>
+      //       </Dropdown>
+      //     </div>
+      //   );
+      case "IMAGE":
         return (
-          <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
+          <div className="flex justify-center items-center">
+            <img
+              src={cellValue}
+              alt={item.name}
+              className="w-8 h-8 rounded-full"
+            />
+          </div>
         );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">
-              {user.team}
+        case "DATE":
+          return (
+            <p className="text-small text-default-400">
+              {new Date(cellValue).toLocaleDateString()}
             </p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            color={statusColorMap[user.status]}
-            size="sm"
-            variant="flat"
-          >
-            {cellValue}
-          </Chip>
-        );
-      case "actions":
-        return (
-          <div className="relative flex justify-end items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <DotsVertical className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        );
+          );
       default:
         return cellValue;
     }
-  }, []);
+  }, [columns]);
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -296,19 +262,19 @@ const TableView = ({
               >
                 {columns.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
-                    {column.name}
+                    {column.label}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
             </Dropdown>
             <Button color="primary" endContent={<Plus />}>
-              Add New
+              New record
             </Button>
           </div>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            Total {module.data.length} items
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -324,15 +290,7 @@ const TableView = ({
         </div>
       </div>
     );
-  }, [
-    filterValue,
-    statusFilter,
-    visibleColumns,
-    onSearchChange,
-    onRowsPerPageChange,
-    users.length,
-    hasSearchFilter,
-  ]);
+  }, [filterValue, onSearchChange, statusFilter, visibleColumns, columns, module.data.length, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (
@@ -371,7 +329,7 @@ const TableView = ({
         </div>
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
+  }, [selectedKeys, filteredItems.length, page, pages, onPreviousPage, onNextPage]);
 
   return (
     <>
@@ -391,13 +349,10 @@ const TableView = ({
       {/*  New record*/}
       {/*</Button>*/}
       <Table
-        aria-label="Example table with custom cells, pagination and sorting"
+        aria-label="Collection Table"
         isHeaderSticky
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
-        classNames={{
-          wrapper: "max-h-[382px]",
-        }}
         selectedKeys={selectedKeys}
         selectionMode="multiple"
         sortDescriptor={sortDescriptor}
@@ -413,11 +368,11 @@ const TableView = ({
               align={column.uid === "actions" ? "center" : "start"}
               allowsSorting={column.sortable}
             >
-              {column.name}
+              {column.label}
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"No users found"} items={sortedItems}>
+        <TableBody emptyContent={"No results found"} items={sortedItems}>
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (
