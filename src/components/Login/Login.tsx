@@ -69,8 +69,9 @@ const Login = () => {
           <h1 className="text-foreground font-medium text-3xl mb-2">Welcome</h1>
           <span className="text-zinc-400 text-md font-medium">
             You can login here to your{" "}
-            <strong>{VRAProps?.config.companyName}</strong>'s administrator
-            panel.
+            <strong>{VRAProps?.config.companyName}</strong>'s
+            <br />
+            administrator panel.
           </span>
         </CardHeader>
         <CardBody>

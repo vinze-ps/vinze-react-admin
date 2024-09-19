@@ -90,12 +90,12 @@ export interface IVRAReducerAction {
   payload: any;
 }
 
-export interface IVRADialogAddEditState {
+export interface IRecordDialogState {
   open: boolean;
   mode: "ADD" | "EDIT";
 }
 
-export type TVRADialogAddEditAction =
+export type TRecordDialogAction =
   | { type: "OPEN" }
   | { type: "CLOSE" }
   | { type: "SET_MODE"; payload: "ADD" | "EDIT" };

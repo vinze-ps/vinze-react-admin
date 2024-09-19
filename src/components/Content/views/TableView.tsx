@@ -1,5 +1,5 @@
-import React, {useContext, useMemo} from "react";
-import { IVRAModule, TVRADialogAddEditAction } from "@/@types/VRA.types";
+import React, { useContext, useMemo } from "react";
+import { IVRAModule, TRecordDialogAction } from "@/@types/VRA.types";
 import { VRAContext } from "@/store/VRAContext";
 import { ChevronDown, Plus } from "lucide-react";
 import {
@@ -27,23 +27,21 @@ const statusOptions = [
   { name: "Vacation", uid: "vacation" },
 ];
 
-const TableView = ({
-  module,
-  dispatchDialogAddEdit,
-}: {
-  module: IVRAModule<any>;
-  dispatchDialogAddEdit: React.Dispatch<TVRADialogAddEditAction>;
-}) => {
-  const { state } = useContext(VRAContext);
+const TableView = ({ module }: { module: IVRAModule<any> }) => {
+  const { state, dispatchRecordDialog } = useContext(VRAContext);
   const { currentModule } = state.menu;
 
-  const columns = useMemo(() => Object.keys(module.fields).map((fieldKey) => {
-    const field = module.fields[fieldKey]!;
-    return {
-      uid: fieldKey,
-      ...field,
-    };
-  }), [module.fields]);
+  const columns = useMemo(
+    () =>
+      Object.keys(module.fields).map((fieldKey) => {
+        const field = module.fields[fieldKey]!;
+        return {
+          uid: fieldKey,
+          ...field,
+        };
+      }),
+    [module.fields],
+  );
 
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
@@ -54,7 +52,9 @@ const TableView = ({
   );
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({});
+  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>(
+    {},
+  );
 
   const [page, setPage] = React.useState(1);
 
@@ -100,7 +100,7 @@ const TableView = ({
   const sortedItems = React.useMemo(() => {
     return [...items].sort((a: any, b: any) => {
       if (!sortDescriptor.column) return 0;
-      
+
       const first = a[sortDescriptor.column] as number;
       const second = b[sortDescriptor.column] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
@@ -109,67 +109,70 @@ const TableView = ({
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((item: any, columnKey: React.Key) => {
-    const cellValue = item[columnKey as string];
+  const renderCell = React.useCallback(
+    (item: any, columnKey: React.Key) => {
+      const cellValue = item[columnKey as string];
 
-    switch (columns.find((column) => columnKey === column.uid)?.type) {
-      // case "DATE":
-      //   return (
-      //     <div className="flex flex-col">
-      //       <p className="text-bold text-small capitalize">{cellValue}</p>
-      //       <p className="text-bold text-tiny capitalize text-default-400">
-      //         {item.team}
-      //       </p>
-      //     </div>
-      //   );
-      // case "TAGS":
-      //   return (
-      //     <Chip
-      //       className="capitalize"
-      //       color={statusColorMap[item.status]}
-      //       size="sm"
-      //       variant="flat"
-      //     >
-      //       {cellValue}
-      //     </Chip>
-      //   );
-      // case "IMAGE":
-      //   return (
-      //     <div className="relative flex justify-end items-center gap-2">
-      //       <Dropdown>
-      //         <DropdownTrigger>
-      //           <Button isIconOnly size="sm" variant="light">
-      //             <DotsVertical className="text-default-300" />
-      //           </Button>
-      //         </DropdownTrigger>
-      //         <DropdownMenu>
-      //           <DropdownItem>View</DropdownItem>
-      //           <DropdownItem>Edit</DropdownItem>
-      //           <DropdownItem>Delete</DropdownItem>
-      //         </DropdownMenu>
-      //       </Dropdown>
-      //     </div>
-      //   );
-      case "IMAGE":
-        return (
-          <div className="flex justify-center items-center">
-            <img
-              src={cellValue}
-              alt={item.name}
-              className="w-8 h-8 rounded-full"
-            />
-          </div>
-        );
+      switch (columns.find((column) => columnKey === column.uid)?.type) {
+        // case "DATE":
+        //   return (
+        //     <div className="flex flex-col">
+        //       <p className="text-bold text-small capitalize">{cellValue}</p>
+        //       <p className="text-bold text-tiny capitalize text-default-400">
+        //         {item.team}
+        //       </p>
+        //     </div>
+        //   );
+        // case "TAGS":
+        //   return (
+        //     <Chip
+        //       className="capitalize"
+        //       color={statusColorMap[item.status]}
+        //       size="sm"
+        //       variant="flat"
+        //     >
+        //       {cellValue}
+        //     </Chip>
+        //   );
+        // case "IMAGE":
+        //   return (
+        //     <div className="relative flex justify-end items-center gap-2">
+        //       <Dropdown>
+        //         <DropdownTrigger>
+        //           <Button isIconOnly size="sm" variant="light">
+        //             <DotsVertical className="text-default-300" />
+        //           </Button>
+        //         </DropdownTrigger>
+        //         <DropdownMenu>
+        //           <DropdownItem>View</DropdownItem>
+        //           <DropdownItem>Edit</DropdownItem>
+        //           <DropdownItem>Delete</DropdownItem>
+        //         </DropdownMenu>
+        //       </Dropdown>
+        //     </div>
+        //   );
+        case "IMAGE":
+          return (
+            <div className="flex justify-center items-center">
+              <img
+                src={cellValue}
+                alt={item.name}
+                className="w-8 h-8 rounded-full"
+              />
+            </div>
+          );
         case "DATE":
           return (
             <p className="text-small text-default-400">
               {new Date(cellValue).toLocaleDateString()}
             </p>
           );
-      default:
-        return cellValue;
-    }
-  }, [columns]);
+        default:
+          return cellValue;
+      }
+    },
+    [columns],
+  );
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -219,7 +222,9 @@ const TableView = ({
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
-            <Dropdown>
+            <Dropdown
+              portalContainer={document.querySelector(".vra-portal-container")!}
+            >
               <DropdownTrigger className="hidden sm:flex">
                 <Button
                   endContent={<ChevronDown className="text-small" />}
@@ -243,7 +248,9 @@ const TableView = ({
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Dropdown>
+            <Dropdown
+              portalContainer={document.querySelector(".vra-portal-container")!}
+            >
               <DropdownTrigger className="hidden sm:flex">
                 <Button
                   endContent={<ChevronDown className="text-small" />}
@@ -267,7 +274,13 @@ const TableView = ({
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<Plus />}>
+            <Button
+              color="primary"
+              endContent={<Plus />}
+              onClick={() => {
+                dispatchRecordDialog({ type: "OPEN" });
+              }}
+            >
               New record
             </Button>
           </div>
@@ -290,7 +303,16 @@ const TableView = ({
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, statusFilter, visibleColumns, columns, module.data.length, onRowsPerPageChange, onClear]);
+  }, [
+    filterValue,
+    onSearchChange,
+    statusFilter,
+    visibleColumns,
+    columns,
+    module.data.length,
+    onRowsPerPageChange,
+    onClear,
+  ]);
 
   const bottomContent = React.useMemo(() => {
     return (
@@ -329,7 +351,14 @@ const TableView = ({
         </div>
       </div>
     );
-  }, [selectedKeys, filteredItems.length, page, pages, onPreviousPage, onNextPage]);
+  }, [
+    selectedKeys,
+    filteredItems.length,
+    page,
+    pages,
+    onPreviousPage,
+    onNextPage,
+  ]);
 
   return (
     <>
