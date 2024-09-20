@@ -29,7 +29,7 @@ export interface IVRAModuleConfig {
 }
 
 export interface IVRAField {
-  type?: "TEXT" | "TEXTAREA" | "DATE" | "IMAGE" | "TAGS";
+  type?: "TEXT" | "TEXTAREA" | "RICH_TEXT" | "DATE" | "IMAGE" | "TAGS";
   primary?: boolean;
   label?: string;
   required?: boolean;

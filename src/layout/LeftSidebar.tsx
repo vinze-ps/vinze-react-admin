@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { IVRA } from "@/@types/VRA.types";
+import { IVRA } from "@/@types/VRA.types.ts";
 import {
   Dropdown,
   DropdownMenu,
@@ -7,8 +7,8 @@ import {
   Listbox,
   ListboxItem,
 } from "@nextui-org/react";
-import { VRAContext } from "@/store/VRAContext";
-import { cn } from "@/lib/utils";
+import { VRAContext } from "@/store/VRAContext.tsx";
+import { cn } from "@/lib/utils.tsx";
 import { Database02, LogOut01 } from "@untitled-ui/icons-react";
 import { Badge } from "@/components/ui/badge.tsx";
 

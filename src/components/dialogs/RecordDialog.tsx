@@ -10,6 +10,7 @@ import {
   ModalHeader,
 } from "@nextui-org/react";
 import { VRAContext } from "@/store/VRAContext.tsx";
+import TextEditor from "@/components/TextEditor.tsx";
 
 const RecordDialog = ({ module }: { module: IVRAModule<any> }) => {
   const { recordDialogState, dispatchRecordDialog } = useContext(VRAContext);
@@ -33,7 +34,9 @@ const RecordDialog = ({ module }: { module: IVRAModule<any> }) => {
                 {Object.keys(module.fields).map((field) => {
                   if (module.fields[field]?.primary) return null;
                   return (
-                    <Input
+                    module.fields[field]?.type === "RICH_TEXT"
+                      ? <TextEditor/>
+                      : <Input
                       key={field}
                       placeholder={`Enter value...`}
                       // onValueChange={(value) => {

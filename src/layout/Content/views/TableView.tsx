@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from "react";
-import { IVRAModule, TRecordDialogAction } from "@/@types/VRA.types";
-import { VRAContext } from "@/store/VRAContext";
+import { IVRAModule, TRecordDialogAction } from "@/@types/VRA.types.ts";
+import { VRAContext } from "@/store/VRAContext.tsx";
 import { ChevronDown, Plus } from "lucide-react";
 import {
   Table,
@@ -151,6 +151,10 @@ const TableView = ({ module }: { module: IVRAModule<any> }) => {
         //       </Dropdown>
         //     </div>
         //   );
+        case "RICH_TEXT":
+          return (
+            <div dangerouslySetInnerHTML={{ __html: cellValue.replaceAll("<script", "") }} />
+          );
         case "IMAGE":
           return (
             <div className="flex justify-center items-center">

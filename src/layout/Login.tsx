@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import { IVRA } from "@/@types/VRA.types";
+import { IVRA } from "@/@types/VRA.types.ts";
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
-import { VRAContext } from "@/store/VRAContext";
+import { VRAContext } from "@/store/VRAContext.tsx";
 import IonIcon from "@reacticons/ionicons";
 import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import Ripple from "@/components/magicui/ripple";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import Ripple from "@/components/magicui/ripple.tsx";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form.tsx";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

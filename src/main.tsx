@@ -93,7 +93,7 @@ const App = () => {
             id: { primary: true },
             title: { type: "TEXT", label: "Title" },
             badges: { type: "TAGS", label: "Badges" },
-            content: { type: "TEXTAREA", label: "Content" },
+            content: { type: "RICH_TEXT", label: "Content" },
             date: { type: "DATE", label: "Date" },
             imageSrc: { type: "IMAGE", label: "Image" },
           }),
