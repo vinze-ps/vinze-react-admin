@@ -9,7 +9,6 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Input,
   Button,
   DropdownTrigger,
   Dropdown,
@@ -20,6 +19,7 @@ import {
   SortDescriptor,
 } from "@nextui-org/react";
 import { DotsVertical, SearchMd } from "@untitled-ui/icons-react";
+import {Input} from "@/components/ui/input.tsx";
 
 const statusOptions = [
   { name: "Active", uid: "active" },
@@ -303,16 +303,7 @@ const TableView = ({ module }: { module: IVRAModule<any> }) => {
         </div>
       </div>
     );
-  }, [
-    filterValue,
-    onSearchChange,
-    statusFilter,
-    visibleColumns,
-    columns,
-    module.data.length,
-    onRowsPerPageChange,
-    onClear,
-  ]);
+  }, [filterValue, onSearchChange, statusFilter, visibleColumns, columns, module.data.length, onRowsPerPageChange, onClear, dispatchRecordDialog]);
 
   const bottomContent = React.useMemo(() => {
     return (

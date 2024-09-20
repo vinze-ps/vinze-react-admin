@@ -3,7 +3,7 @@ import { Input as InputNEXT, InputProps } from "@nextui-org/react";
 import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
 
-const Input = forwardRef<HTMLInputElement, InputProps & {isTransparent?: boolean}>(({ isTransparent, ...props }, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps & {isTransparent?: boolean}>(({ isTransparent = true, ...props }, ref) => {
   return (
     <InputNEXT
       ref={ref}

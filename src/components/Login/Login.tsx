@@ -131,7 +131,6 @@ const Login = () => {
                               form.formState.errors.username?.message
                             }
                             placeholder={"Username"}
-                            isTransparent
                             size={"lg"}
                             required
                           />
@@ -155,7 +154,6 @@ const Login = () => {
                             }
                             size={"lg"}
                             placeholder={"Password"}
-                            isTransparent
                             type={showPassword ? "text" : "password"}
                             endContent={
                               field.value ? (

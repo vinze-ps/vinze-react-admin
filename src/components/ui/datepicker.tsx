@@ -2,11 +2,11 @@
 
 import * as React from "react";
 
-import { Input } from "@nextui-org/react";
 import moment from "moment";
 import { pl } from "date-fns/locale";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Calendar } from "./calendar";
+import {Input} from "@/components/ui/input.tsx";
 
 export function DatePicker() {
   const [inputValue, setInputValue] = React.useState<string>("");
