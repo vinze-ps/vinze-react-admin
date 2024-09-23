@@ -1,13 +1,17 @@
-import {  EditorContent } from "@tiptap/react";
+import { EditorContent } from "@tiptap/react";
 import { TextMenu } from "@/components/text_editor/components/menus/TextMenu";
-import {ContentItemMenu, LinkMenu} from "@/components/text_editor/components/menus";
+import {
+  ContentItemMenu,
+  LinkMenu,
+} from "@/components/text_editor/components/menus";
 import { ColumnsMenu } from "./extensions/MultiColumn/menus";
 import { TableColumnMenu, TableRowMenu } from "./extensions/Table/menus";
 import { useRef } from "react";
 import ImageBlockMenu from "./extensions/ImageBlock/components/ImageBlockMenu";
-import {useBlockEditor} from "@/components/text_editor/hooks/useBlockEditor.ts";
+import { useBlockEditor } from "@/components/text_editor/hooks/useBlockEditor.ts";
 
-import '@/components/text_editor/styles/index.css'
+import "@/components/text_editor/styles/index.scss";
+import "@/components/text_editor/styles/globals.scss";
 
 const TextEditor = () => {
   const menuContainerRef = useRef(null);

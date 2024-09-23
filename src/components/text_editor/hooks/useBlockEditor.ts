@@ -1,42 +1,40 @@
-import { useEditor } from '@tiptap/react'
-import type { AnyExtension, Editor } from '@tiptap/core'
+import { useEditor } from "@tiptap/react";
+import type { AnyExtension, Editor } from "@tiptap/core";
 
-import { ExtensionKit } from '@/components/text_editor/extensions/extension-kit'
-import { initialContent } from '@/components/text_editor/lib/data/initialContent'
+import { ExtensionKit } from "@/components/text_editor/extensions/extension-kit";
 
 declare global {
   interface Window {
-    editor: Editor | null
+    editor: Editor | null;
   }
 }
 
 export const useBlockEditor = () => {
-
   const editor = useEditor(
     {
       immediatelyRender: true,
       shouldRerenderOnTransaction: false,
       autofocus: true,
-      onCreate: ctx => {
-          ctx.editor.commands.setContent(initialContent)
-          ctx.editor.commands.focus('start', { scrollIntoView: true });
+      onCreate: (ctx) => {
+        ctx.editor.commands.setContent({});
+        ctx.editor.commands.focus("start", { scrollIntoView: true });
       },
-      extensions: [
-        ...ExtensionKit(),
-      ].filter((e): e is AnyExtension => e !== undefined),
+      extensions: [...ExtensionKit()].filter(
+        (e): e is AnyExtension => e !== undefined,
+      ),
       editorProps: {
         attributes: {
-          autocomplete: 'off',
-          autocorrect: 'off',
-          autocapitalize: 'off',
-          class: 'min-h-full',
+          autocomplete: "off",
+          autocorrect: "off",
+          autocapitalize: "off",
+          class: "min-h-full",
         },
       },
     },
     [],
-  )
+  );
 
-  window.editor = editor
+  window.editor = editor;
 
-  return { editor }
-}
+  return { editor };
+};
