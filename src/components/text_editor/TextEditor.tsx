@@ -7,6 +7,8 @@ import { useRef } from "react";
 import ImageBlockMenu from "./extensions/ImageBlock/components/ImageBlockMenu";
 import {useBlockEditor} from "@/components/text_editor/hooks/useBlockEditor.ts";
 
+import '@/components/text_editor/styles/index.css'
+
 const TextEditor = () => {
   const menuContainerRef = useRef(null);
   const { editor } = useBlockEditor();
