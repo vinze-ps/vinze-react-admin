@@ -1,7 +1,5 @@
 'use client'
 
-import { HocuspocusProvider } from '@hocuspocus/provider'
-
 import { API } from '@/components/text_editor/lib/api'
 
 import {
@@ -53,11 +51,7 @@ import { ImageUpload } from './ImageUpload'
 import { TableOfContentsNode } from './TableOfContentsNode'
 import { isChangeOrigin } from '@tiptap/extension-collaboration'
 
-interface ExtensionKitProps {
-  provider?: HocuspocusProvider | null
-}
-
-export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
+export const ExtensionKit = () => [
   Document,
   Columns,
   TaskList,
@@ -105,9 +99,9 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
   CharacterCount.configure({ limit: 50000 }),
   TableOfContents,
   TableOfContentsNode,
-  ImageUpload.configure({
-    clientId: provider?.document?.clientID,
-  }),
+  // ImageUpload.configure({
+  //   clientId: provider?.document?.clientID,
+  // }),
   ImageBlock,
   FileHandler.configure({
     allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],

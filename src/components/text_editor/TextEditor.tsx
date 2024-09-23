@@ -1,22 +1,15 @@
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
+import {  EditorContent } from "@tiptap/react";
 import { TextMenu } from "@/components/text_editor/components/menus/TextMenu";
 import {ContentItemMenu, LinkMenu} from "@/components/text_editor/components/menus";
 import { ColumnsMenu } from "./extensions/MultiColumn/menus";
 import { TableColumnMenu, TableRowMenu } from "./extensions/Table/menus";
 import { useRef } from "react";
 import ImageBlockMenu from "./extensions/ImageBlock/components/ImageBlockMenu";
-
-const extensions = [StarterKit];
-
-const content = "<p>Hello World!</p>";
+import {useBlockEditor} from "@/components/text_editor/hooks/useBlockEditor.ts";
 
 const TextEditor = () => {
   const menuContainerRef = useRef(null);
-  const editor = useEditor({
-    extensions,
-    content,
-  });
+  const { editor } = useBlockEditor();
 
   if (!editor) {
     return null;

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { VRAContext } from "@/store/VRAContext.tsx";
 import RecordDialog from "../../components/dialogs/RecordDialog.tsx";
 import { TableView } from "@/layout/content/views/TableView.tsx";
+import TextEditor from "@/components/text_editor/TextEditor.tsx";
 
 const Content = React.memo(() => {
   const { state } = useContext(VRAContext);
@@ -32,7 +33,8 @@ const Content = React.memo(() => {
         {/*    )}*/}
         {/*  </Card>*/}
         {/*))}*/}
-        {module && <TableView module={module} />}
+        <TextEditor/>
+        {/*{module && <TableView module={module} />}*/}
         {/* {currentModule === "DASHBOARD" && <Dashboard />}
       {currentModule === "BLOG" && !!cards.find((m) => m.name === "BLOG") && <Blog />}
       {currentModule === "MEDIA" && !!cards.find((m) => m.name === "MEDIA") && (

@@ -88,7 +88,6 @@
     "@tiptap/react": "2.7.2",
     "@tiptap/starter-kit": "2.7.2",
     "@tiptap/suggestion": "2.7.2",
-    "@hocuspocus/provider": "^2.13.5",
     "@tippyjs/react": "^4.2.6",
     "tippy.js": "^6.3.7",
     "uuid": "^9.0.1",
