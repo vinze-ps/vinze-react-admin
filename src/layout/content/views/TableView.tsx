@@ -20,6 +20,7 @@ import {
 } from "@nextui-org/react";
 import { DotsVertical, SearchMd } from "@untitled-ui/icons-react";
 import {Input} from "@/components/ui/input.tsx";
+import TextEditor from "@/components/text_editor/TextEditor.tsx";
 
 const statusOptions = [
   { name: "Active", uid: "active" },

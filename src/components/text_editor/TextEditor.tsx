@@ -1,7 +1,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { TextMenu } from "./menus/TextMenu";
-import { LinkMenu } from "@/components/text_editor/menus";
+import { TextMenu } from "@/components/text_editor/components/menus/TextMenu";
+import {ContentItemMenu, LinkMenu} from "@/components/text_editor/components/menus";
 import { ColumnsMenu } from "./extensions/MultiColumn/menus";
 import { TableColumnMenu, TableRowMenu } from "./extensions/Table/menus";
 import { useRef } from "react";
@@ -25,6 +25,7 @@ const TextEditor = () => {
   return (
     <div ref={menuContainerRef}>
       <EditorContent editor={editor} className="flex-1 overflow-y-auto" />
+      <ContentItemMenu editor={editor} />
       <LinkMenu editor={editor} appendTo={menuContainerRef} />
       <TextMenu editor={editor} />
       <ColumnsMenu editor={editor} appendTo={menuContainerRef} />

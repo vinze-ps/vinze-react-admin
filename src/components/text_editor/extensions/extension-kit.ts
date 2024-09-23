@@ -1,17 +1,22 @@
-"use client";
+'use client'
 
-import { HocuspocusProvider } from "@hocuspocus/provider";
+import { HocuspocusProvider } from '@hocuspocus/provider'
 
-import { API } from "@/components/text_editor/lib/api";
+import { API } from '@/components/text_editor/lib/api'
 
 import {
   BlockquoteFigure,
   CharacterCount,
   CodeBlock,
   Color,
+  Details,
+  DetailsContent,
+  DetailsSummary,
   Document,
   Dropcursor,
+  Emoji,
   Figcaption,
+  FileHandler,
   Focus,
   FontFamily,
   FontSize,
@@ -27,6 +32,7 @@ import {
   Subscript,
   Superscript,
   Table,
+  TableOfContents,
   TableCell,
   TableHeader,
   TableRow,
@@ -35,17 +41,20 @@ import {
   TrailingNode,
   Typography,
   Underline,
+  emojiSuggestion,
   Columns,
   Column,
   TaskItem,
   TaskList,
-} from ".";
+  UniqueID,
+} from '.'
 
-import { ImageUpload } from "./ImageUpload";
-import { isChangeOrigin } from "@tiptap/extension-collaboration";
+import { ImageUpload } from './ImageUpload'
+import { TableOfContentsNode } from './TableOfContentsNode'
+import { isChangeOrigin } from '@tiptap/extension-collaboration'
 
 interface ExtensionKitProps {
-  provider?: HocuspocusProvider | null;
+  provider?: HocuspocusProvider | null
 }
 
 export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
@@ -61,6 +70,10 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
     levels: [1, 2, 3, 4, 5, 6],
   }),
   HorizontalRule,
+  UniqueID.configure({
+    types: ['paragraph', 'heading', 'blockquote', 'codeBlock', 'table'],
+    filterTransaction: transaction => !isChangeOrigin(transaction),
+  }),
   StarterKit.configure({
     document: false,
     dropcursor: false,
@@ -70,6 +83,14 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
     history: false,
     codeBlock: false,
   }),
+  Details.configure({
+    persist: true,
+    HTMLAttributes: {
+      class: 'details',
+    },
+  }),
+  DetailsContent,
+  DetailsSummary,
   CodeBlock,
   TextStyle,
   FontSize,
@@ -82,16 +103,43 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
   Highlight.configure({ multicolor: true }),
   Underline,
   CharacterCount.configure({ limit: 50000 }),
+  TableOfContents,
+  TableOfContentsNode,
   ImageUpload.configure({
     clientId: provider?.document?.clientID,
   }),
   ImageBlock,
+  FileHandler.configure({
+    allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+    onDrop: (currentEditor, files, pos) => {
+      files.forEach(async file => {
+        const url = await API.uploadImage(file)
+
+        currentEditor.chain().setImageBlockAt({ pos, src: url }).focus().run()
+      })
+    },
+    onPaste: (currentEditor, files) => {
+      files.forEach(async file => {
+        const url = await API.uploadImage(file)
+
+        return currentEditor
+          .chain()
+          .setImageBlockAt({ pos: currentEditor.state.selection.anchor, src: url })
+          .focus()
+          .run()
+      })
+    },
+  }),
+  Emoji.configure({
+    enableEmoticons: true,
+    suggestion: emojiSuggestion,
+  }),
   TextAlign.extend({
     addKeyboardShortcuts() {
-      return {};
+      return {}
     },
   }).configure({
-    types: ["heading", "paragraph"],
+    types: ['heading', 'paragraph'],
   }),
   Subscript,
   Superscript,
@@ -103,7 +151,7 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
   Placeholder.configure({
     includeChildren: true,
     showOnlyCurrent: false,
-    placeholder: () => "",
+    placeholder: () => '',
   }),
   SlashCommand,
   Focus,
@@ -111,8 +159,8 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
   BlockquoteFigure,
   Dropcursor.configure({
     width: 2,
-    class: "ProseMirror-dropcursor border-black",
+    class: 'ProseMirror-dropcursor border-black',
   }),
-];
+]
 
-export default ExtensionKit;
+export default ExtensionKit
