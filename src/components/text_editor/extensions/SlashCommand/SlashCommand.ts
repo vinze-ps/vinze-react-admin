@@ -21,7 +21,6 @@ export const SlashCommand = Extension.create({
 
   onCreate() {
     popup = tippy("body", {
-      appendTo: () => document.querySelector(".vra-portal-container")!,
       interactive: true,
       trigger: "manual",
       placement: "bottom-start",
@@ -44,6 +43,7 @@ export const SlashCommand = Extension.create({
     return [
       Suggestion({
         editor: this.editor,
+
         char: "/",
         allowSpaces: true,
         startOfLine: true,
@@ -187,7 +187,7 @@ export const SlashCommand = Extension.create({
 
               popup?.[0].setProps({
                 getReferenceClientRect,
-                appendTo: () => document.body,
+                appendTo: () => document.querySelector(".vra-portal-container")!,
                 content: component.element,
               });
 
@@ -216,7 +216,7 @@ export const SlashCommand = Extension.create({
                 return new DOMRect(rect.x, rect.y, rect.width, rect.height);
               };
 
-              let scrollHandler = () => {
+              const scrollHandler = () => {
                 popup?.[0].setProps({
                   getReferenceClientRect,
                 });

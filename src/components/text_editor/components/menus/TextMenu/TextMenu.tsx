@@ -33,6 +33,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
   return (
     <BubbleMenu
       tippyOptions={{
+        appendTo: document.querySelector(".vra-portal-container")!,
         popperOptions: {
           placement: 'top-start',
           modifiers: [

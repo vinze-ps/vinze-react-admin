@@ -23,7 +23,7 @@ const TextEditor = () => {
 
   return (
     <div ref={menuContainerRef}>
-      <EditorContent editor={editor} className="flex-1 overflow-y-auto" />
+      <EditorContent editor={editor} className="" />
       <ContentItemMenu editor={editor} />
       <LinkMenu editor={editor} appendTo={menuContainerRef} />
       <TextMenu editor={editor} />

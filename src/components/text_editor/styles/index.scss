@@ -8,7 +8,7 @@
 @import './partials/typography.scss';
 
 .ProseMirror {
-  @apply caret-black dark:caret-white outline-0 pr-8 pl-20 py-16 z-0 lg:pl-8 lg:pr-8 mx-auto max-w-2xl;
+  @apply caret-black dark:caret-white outline-0 relative w-full tap-highlight-transparent shadow-sm px-3 py-1.5 border-medium border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground min-h-10 rounded-medium transition-background duration-150 motion-reduce:transition-none border-none bg-opacity-20 bg-zinc-600 data-[hover=true]:bg-zinc-400 group-data-[focus=true]:bg-zinc-500 max-h-32 overflow-auto;
 
   .selection {
     @apply inline-block;

@@ -27,7 +27,7 @@ export const useBlockEditor = () => {
           autocomplete: "off",
           autocorrect: "off",
           autocapitalize: "off",
-          class: "min-h-full",
+          class: "",
         },
       },
     },
