@@ -8,6 +8,7 @@ const Input = forwardRef<HTMLInputElement, InputProps & {isTransparent?: boolean
     <InputNEXT
       ref={ref}
       labelPlacement={"outside"}
+      placeholder={" "}
       size="md"
       variant={"bordered"}
       {...props}

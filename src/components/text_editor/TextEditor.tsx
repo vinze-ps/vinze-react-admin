@@ -6,14 +6,14 @@ import {
 } from "@/components/text_editor/components/menus";
 import { ColumnsMenu } from "./extensions/MultiColumn/menus";
 import { TableColumnMenu, TableRowMenu } from "./extensions/Table/menus";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import ImageBlockMenu from "./extensions/ImageBlock/components/ImageBlockMenu";
 import { useBlockEditor } from "@/components/text_editor/hooks/useBlockEditor.ts";
 
 import "@/components/text_editor/styles/index.scss";
 import "@/components/text_editor/styles/globals.scss";
 
-const TextEditor = () => {
+const TextEditor = ({label}: {label?: React.ReactNode}) => {
   const menuContainerRef = useRef(null);
   const { editor } = useBlockEditor();
 
@@ -23,6 +23,8 @@ const TextEditor = () => {
 
   return (
     <div ref={menuContainerRef}>
+      {label && <div
+        className={"mb-[10px] pointer-events-none subpixel-antialiased block text-foreground pb-0 end-auto pe-2 max-w-full text-ellipsis overflow-hidden text-sm"}>{label}</div>}
       <EditorContent editor={editor} className="" />
       <ContentItemMenu editor={editor} />
       <LinkMenu editor={editor} appendTo={menuContainerRef} />

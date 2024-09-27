@@ -2,8 +2,6 @@ import React, { useContext } from "react";
 import { VRAContext } from "@/store/VRAContext.tsx";
 import RecordDialog from "../../components/dialogs/RecordDialog.tsx";
 import { TableView } from "@/layout/content/views/TableView.tsx";
-import TextEditor from "@/components/text_editor/TextEditor.tsx";
-import { Input } from "@/components/ui/input.tsx";
 
 const Content = React.memo(() => {
   const { state } = useContext(VRAContext);
@@ -34,13 +32,7 @@ const Content = React.memo(() => {
         {/*    )}*/}
         {/*  </Card>*/}
         {/*))}*/}
-        <div className={"flex flex-col gap-4 max-w-md"}>
-          <Input/>
-          <TextEditor/>
-          <Input/>
-          <Input/>
-        </div>
-        {/*{module && <TableView module={module} />}*/}
+        {module && <TableView module={module} />}
         {/* {currentModule === "DASHBOARD" && <Dashboard />}
       {currentModule === "BLOG" && !!cards.find((m) => m.name === "BLOG") && <Blog />}
       {currentModule === "MEDIA" && !!cards.find((m) => m.name === "MEDIA") && (

@@ -34,7 +34,7 @@ const RecordDialog = ({ module }: { module: IVRAModule<any> }) => {
                 {Object.keys(module.fields).map((field) => {
                   if (module.fields[field]?.primary) return null;
                   return module.fields[field]?.type === "RICH_TEXT" ? (
-                    <TextEditor />
+                    <TextEditor label={module.fields[field]?.label} />
                   ) : (
                     <Input
                       key={field}
