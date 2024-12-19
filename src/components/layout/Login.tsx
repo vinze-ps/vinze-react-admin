@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { IVRA } from "@/@types/VRA.types.ts";
+import { IVRA } from "@/types/VRA.types.ts";
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import { VRAContext } from "@/store/VRAContext.tsx";
 import IonIcon from "@reacticons/ionicons";
@@ -7,22 +7,8 @@ import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import Ripple from "@/components/magicui/ripple.tsx";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form.tsx";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  password: z
-    .string()
-    .min(6)
-    .max(50)
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-      "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
-    ),
-});
+import {LoginFormData, loginSchema} from "@/schemas/forms/login.schema.ts";
+import {useZodForm} from "@/hooks/useZodForm.ts";
 
 const Login = () => {
   const VRAProps: IVRA | null = useContext(VRAContext).state.VRAProps;
@@ -31,15 +17,14 @@ const Login = () => {
   const [loadingLoginGoogle, setLoadingLoginGoogle] = useState<boolean>(false);
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useZodForm(loginSchema,{
     defaultValues: {
       username: "",
       password: "",
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
+  const handleSubmit = (values: LoginFormData) => {
     setLoadingLogin(true);
     VRAProps?.auth?.onSubmit("DEFAULT", values).then((result) => {
       if (!result.status) setLoadingLogin(false);
@@ -78,7 +63,7 @@ const Login = () => {
           {VRAProps?.auth.google && (
             <Button
               startContent={<IonIcon name="logo-google" />}
-              onClick={handleClickLoginGoogle}
+              onPress={handleClickLoginGoogle}
               isLoading={loadingLoginGoogle}
               variant={"bordered"}
               size={"lg"}
@@ -196,7 +181,7 @@ const Login = () => {
           {!showInputs && (
             <Button
               className="w-full bg-zinc-600 text-foreground mt-2 !text-[1rem] bg-opacity-20"
-              onClick={() => setShowInputs(true)}
+              onPress={() => setShowInputs(true)}
               size={"lg"}
               color="primary"
             >

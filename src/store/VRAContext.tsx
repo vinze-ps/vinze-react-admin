@@ -2,14 +2,14 @@ import React, { createContext, useEffect, useReducer } from "react";
 import {
   VRAReducer,
   initialVRAState,
-} from "@/reducers/vinze-react-admin-reducer";
+} from "@/reducers/vra-reducer.ts";
 import {
   IRecordDialogState,
   IVRA,
   IVRAReducerAction,
   IVRAReducerState,
   TRecordDialogAction,
-} from "@/@types/VRA.types";
+} from "@/types/VRA.types";
 import {
   initialRecordDialogState,
   recordDialogReducer,

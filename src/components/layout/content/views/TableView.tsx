@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import { IVRAModule, TRecordDialogAction } from "@/@types/VRA.types.ts";
+import { IVRAModule, TRecordDialogAction } from "@/types/VRA.types.ts";
 import { VRAContext } from "@/store/VRAContext.tsx";
 import { ChevronDown, Plus } from "lucide-react";
 import {

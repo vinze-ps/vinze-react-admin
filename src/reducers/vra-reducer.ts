@@ -1,4 +1,4 @@
-import { IVRAReducerAction, IVRAReducerState } from "@/@types/VRA.types";
+import { IVRAReducerAction, IVRAReducerState } from "@/types/VRA.types";
 
 export const initialVRAState: IVRAReducerState = {
   VRAProps: null,

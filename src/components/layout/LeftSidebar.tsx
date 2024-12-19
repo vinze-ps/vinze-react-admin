@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { IVRA } from "@/@types/VRA.types.ts";
+import { IVRA } from "@/types/VRA.types.ts";
 import {
   Dropdown,
   DropdownMenu,

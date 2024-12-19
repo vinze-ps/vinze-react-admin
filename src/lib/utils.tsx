@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { IVRAField } from "@/@types/VRA.types";
+import { IVRAField } from "@/types/VRA.types";
 import moment from "moment";
 
 export const getVRAModulesColumns = (

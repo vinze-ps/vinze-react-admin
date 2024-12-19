@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { VRAContext } from "@/store/VRAContext.tsx";
-import RecordDialog from "../../components/dialogs/RecordDialog.tsx";
-import { TableView } from "@/layout/content/views/TableView.tsx";
+import RecordDialog from "../../dialogs/RecordDialog.tsx";
+import { TableView } from "@/components/layout/content/views/TableView.tsx";
 
 const Content = React.memo(() => {
   const { state } = useContext(VRAContext);

@@ -5,7 +5,7 @@ import {
   IVRAError,
   IVRAModuleCallbacks,
   IVRAUserData,
-} from "@/@types/VRA.types";
+} from "@/types/VRA.types";
 import useLocalStorage from "use-local-storage";
 import { useState } from "react";
 import VRAModule from "@/VRAModule.tsx";

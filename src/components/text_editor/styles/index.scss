@@ -1,11 +1,11 @@
-@import './partials/animations.scss';
-@import './partials/blocks.scss';
-@import './partials/code.scss';
-@import './partials/collab.scss';
-@import './partials/lists.scss';
-@import './partials/placeholder.scss';
-@import './partials/table.scss';
-@import './partials/typography.scss';
+@use 'partials/animations.scss';
+@use 'partials/blocks.scss';
+@use 'partials/code.scss';
+@use 'partials/collab.scss';
+@use 'partials/lists.scss';
+@use 'partials/placeholder.scss';
+@use 'partials/table.scss';
+@use 'partials/typography.scss';
 
 .ProseMirror {
   @apply caret-black dark:caret-white outline-0 relative w-full tap-highlight-transparent shadow-sm px-3 py-1.5 border-medium border-default-200 min-h-10 rounded-medium transition-background duration-150 motion-reduce:transition-none border-none bg-opacity-20 bg-zinc-600 hover:bg-zinc-400 focus:bg-zinc-500 max-h-32 overflow-auto;

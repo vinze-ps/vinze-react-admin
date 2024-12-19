@@ -1,4 +1,4 @@
-import { IVRAModule } from "@/@types/VRA.types.ts";
+import { IVRAModule } from "@/types/VRA.types.ts";
 import { useContext, useEffect } from "react";
 import { VRAContext } from "@/store/VRAContext.tsx";
 

@@ -1,4 +1,4 @@
-import { IRecordDialogState, TRecordDialogAction } from "@/@types/VRA.types";
+import { IRecordDialogState, TRecordDialogAction } from "@/types/VRA.types";
 
 export const initialRecordDialogState: IRecordDialogState = {
   open: false,

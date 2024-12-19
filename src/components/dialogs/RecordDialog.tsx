@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { IVRAModule } from "@/@types/VRA.types";
+import { IVRAModule } from "@/types/VRA.types";
 import { Input } from "../ui/input";
 import {
   Button,

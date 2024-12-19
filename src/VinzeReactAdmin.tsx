@@ -1,12 +1,12 @@
 "use client";
-import { IVRA } from "@/@types/VRA.types";
-import Login from "@/layout/Login.tsx";
-import "./index.scss";
-import LeftSidebar from "@/layout/LeftSidebar.tsx";
-import Content from "@/layout/content/Content.tsx";
+import { IVRA } from "@/types/VRA.types";
+import Login from "@/components/layout/Login.tsx";
+import "./assets/styles/index.scss";
+import LeftSidebar from "@/components/layout/LeftSidebar.tsx";
+import Content from "@/components/layout/content/Content.tsx";
 import Providers from "./providers/Providers";
 import { useEffect } from "react";
-import TopBar from "@/layout/TopBar.tsx";
+import TopBar from "@/components/layout/TopBar.tsx";
 // import "dayjs/locale/pl";
 
 const VinzeReactAdmin = (props: IVRA) => {
