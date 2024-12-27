@@ -24,7 +24,7 @@ const RecordDialog = ({ module }: { module: IVRAModule<any> }) => {
       }
       isDismissable={false}
     >
-      <ModalContent className="sm:max-w-[768px] border-neutral-700">
+      <ModalContent className="sm:max-w-[768px] border-neutral-700 overflow-visible">
         {(onClose) => (
           <>
             <ModalHeader>
