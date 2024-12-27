@@ -22,6 +22,7 @@ const RecordDialog = ({ module }: { module: IVRAModule<any> }) => {
       onOpenChange={(open) =>
         dispatchRecordDialog({ type: open ? "OPEN" : "CLOSE" })
       }
+      isDismissable={false}
     >
       <ModalContent className="sm:max-w-[768px] border-neutral-700">
         {(onClose) => (
