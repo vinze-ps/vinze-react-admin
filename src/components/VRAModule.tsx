@@ -1,9 +1,9 @@
 import { IVRAModule } from "@/types/VRA.types.ts";
 import { useContext, useEffect } from "react";
-import { VRAContext } from "@/store/VRAContext.tsx";
+import { VraContext } from "@/store/vra-context.tsx";
 
 function VRAModule<T>(moduleProps: IVRAModule<T>) {
-  const { dispatchVRA } = useContext(VRAContext);
+  const { dispatchVRA } = useContext(VraContext);
 
   useEffect(() => {
     dispatchVRA({

@@ -1,23 +1,28 @@
 import React, { useContext, useState } from "react";
 import { IVRA } from "@/types/VRA.types.ts";
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
-import { VRAContext } from "@/store/VRAContext.tsx";
+import { VraContext } from "@/store/vra-context.tsx";
 import IonIcon from "@reacticons/ionicons";
 import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import Ripple from "@/components/magicui/ripple.tsx";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form.tsx";
-import {LoginFormData, loginSchema} from "@/schemas/forms/login.schema.ts";
-import {useZodForm} from "@/hooks/useZodForm.ts";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+} from "@/components/ui/form.tsx";
+import { LoginFormData, loginSchema } from "@/schemas/forms/login.schema.ts";
+import { useZodForm } from "@/hooks/useZodForm.ts";
 
 const Login = () => {
-  const VRAProps: IVRA | null = useContext(VRAContext).state.VRAProps;
+  const VRAProps: IVRA | null = useContext(VraContext).state.VRAProps;
   const [showInputs, setShowInputs] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loadingLoginGoogle, setLoadingLoginGoogle] = useState<boolean>(false);
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
 
-  const form = useZodForm(loginSchema,{
+  const form = useZodForm(loginSchema, {
     defaultValues: {
       username: "",
       password: "",

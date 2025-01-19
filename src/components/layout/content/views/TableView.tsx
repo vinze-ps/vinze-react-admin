@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from "react";
 import { IVRAModule, TRecordDialogAction } from "@/types/VRA.types.ts";
-import { VRAContext } from "@/store/VRAContext.tsx";
+import { VraContext } from "@/store/vra-context.tsx";
 import { ChevronDown, Plus } from "lucide-react";
 import {
   Table,
@@ -19,7 +19,7 @@ import {
   SortDescriptor,
 } from "@nextui-org/react";
 import { DotsVertical, SearchMd } from "@untitled-ui/icons-react";
-import {Input} from "@/components/ui/input.tsx";
+import { Input } from "@/components/ui/input.tsx";
 import TextEditor from "@/components/text_editor/TextEditor.tsx";
 
 const statusOptions = [
@@ -29,7 +29,7 @@ const statusOptions = [
 ];
 
 const TableView = ({ module }: { module: IVRAModule<any> }) => {
-  const { state, dispatchRecordDialog } = useContext(VRAContext);
+  const { state, dispatchRecordDialog } = useContext(VraContext);
   const { currentModule } = state.menu;
 
   const columns = useMemo(
@@ -154,7 +154,11 @@ const TableView = ({ module }: { module: IVRAModule<any> }) => {
         //   );
         case "RICH_TEXT":
           return (
-            <div dangerouslySetInnerHTML={{ __html: cellValue.replaceAll("<script", "") }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: cellValue.replaceAll("<script", ""),
+              }}
+            />
           );
         case "IMAGE":
           return (
@@ -308,7 +312,17 @@ const TableView = ({ module }: { module: IVRAModule<any> }) => {
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, statusFilter, visibleColumns, columns, module.data.length, onRowsPerPageChange, onClear, dispatchRecordDialog]);
+  }, [
+    filterValue,
+    onSearchChange,
+    statusFilter,
+    visibleColumns,
+    columns,
+    module.data.length,
+    onRowsPerPageChange,
+    onClear,
+    dispatchRecordDialog,
+  ]);
 
   const bottomContent = React.useMemo(() => {
     return (

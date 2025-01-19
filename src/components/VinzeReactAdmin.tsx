@@ -1,10 +1,10 @@
 "use client";
-import { IVRA } from "@/types/VRA.types";
+import { IVRA } from "@/types/VRA.types.ts";
 import Login from "@/components/layout/Login.tsx";
-import "./assets/styles/index.scss";
+import "../assets/styles/index.scss";
 import LeftSidebar from "@/components/layout/LeftSidebar.tsx";
 import Content from "@/components/layout/content/Content.tsx";
-import Providers from "./providers/Providers";
+import Providers from "../providers/Providers.tsx";
 import { useEffect } from "react";
 import TopBar from "@/components/layout/TopBar.tsx";
 // import "dayjs/locale/pl";

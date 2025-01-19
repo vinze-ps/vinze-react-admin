@@ -7,13 +7,13 @@ import {
   Listbox,
   ListboxItem,
 } from "@nextui-org/react";
-import { VRAContext } from "@/store/VRAContext.tsx";
+import { VraContext } from "@/store/vra-context.tsx";
 import { cn } from "@/lib/utils.tsx";
 import { Database02, LogOut01 } from "@untitled-ui/icons-react";
 import { Badge } from "@/components/ui/badge.tsx";
 
 const LeftSidebar = () => {
-  const { state, dispatchVRA } = useContext(VRAContext);
+  const { state, dispatchVRA } = useContext(VraContext);
   const { auth }: IVRA = state.VRAProps!;
   const { onLogout, userData } = auth;
   const { menu, modules } = state;

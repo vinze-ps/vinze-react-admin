@@ -1,8 +1,5 @@
 import React, { createContext, useEffect, useReducer } from "react";
-import {
-  VRAReducer,
-  initialVRAState,
-} from "@/reducers/vra-reducer.ts";
+import { VRAReducer, initialVRAState } from "@/reducers/vra-reducer.ts";
 import {
   IRecordDialogState,
   IVRA,
@@ -27,7 +24,7 @@ const initialVRAContext: {
   dispatchRecordDialog: () => {},
 };
 
-const VRAContext = createContext(initialVRAContext);
+const VraContext = createContext(initialVRAContext);
 
 const VRAProvider = (props: { children: React.ReactNode; VRAProps: IVRA }) => {
   const { VRAProps } = props;
@@ -45,12 +42,12 @@ const VRAProvider = (props: { children: React.ReactNode; VRAProps: IVRA }) => {
   }, [dispatchVRA, VRAProps]);
 
   return (
-    <VRAContext.Provider
+    <VraContext.Provider
       value={{ state, dispatchVRA, recordDialogState, dispatchRecordDialog }}
     >
       {state.VRAProps ? props.children : null}
-    </VRAContext.Provider>
+    </VraContext.Provider>
   );
 };
 
-export { VRAContext, VRAProvider };
+export { VraContext, VRAProvider };

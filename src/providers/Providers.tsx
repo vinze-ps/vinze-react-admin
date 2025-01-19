@@ -1,5 +1,5 @@
 import React from "react";
-import { VRAProvider } from "@/store/VRAContext";
+import { VRAProvider } from "@/store/vra-context.tsx";
 import { NextUIProvider } from "@nextui-org/react";
 import { SnackbarProvider } from "notistack";
 import { IVRA } from "@/types/VRA.types";

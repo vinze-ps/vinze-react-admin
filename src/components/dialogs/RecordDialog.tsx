@@ -9,11 +9,11 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { VRAContext } from "@/store/VRAContext.tsx";
+import { VraContext } from "@/store/vra-context.tsx";
 import TextEditor from "@/components/text_editor/TextEditor.tsx";
 
 const RecordDialog = ({ module }: { module: IVRAModule<any> }) => {
-  const { recordDialogState, dispatchRecordDialog } = useContext(VRAContext);
+  const { recordDialogState, dispatchRecordDialog } = useContext(VraContext);
 
   return (
     <Modal
