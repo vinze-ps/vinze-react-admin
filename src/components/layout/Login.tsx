@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { IVRA } from "@/types/VRA.types.ts";
-import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Divider } from "@heroui/react";
 import { VraContext } from "@/store/vra-context.tsx";
 import IonIcon from "@reacticons/ionicons";
 import { Input } from "@/components/ui/input.tsx";

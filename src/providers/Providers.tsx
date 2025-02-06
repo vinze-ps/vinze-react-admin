@@ -1,6 +1,6 @@
 import React from "react";
 import { VRAProvider } from "@/store/vra-context.tsx";
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 import { SnackbarProvider } from "notistack";
 import { IVRA } from "@/types/VRA.types";
 const Providers = ({
@@ -12,11 +12,11 @@ const Providers = ({
 }) => {
   return (
     <VRAProvider VRAProps={VRAProps}>
-      <NextUIProvider className={"h-full"} disableRipple>
+      <HeroUIProvider className={"h-full"} disableRipple>
         <SnackbarProvider autoHideDuration={5000} maxSnack={3}>
           {children}
         </SnackbarProvider>
-      </NextUIProvider>
+      </HeroUIProvider>
     </VRAProvider>
   );
 };

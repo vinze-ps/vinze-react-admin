@@ -22,7 +22,7 @@ export default defineConfig({
       external: [
         "react",
         "react-dom",
-        "@nextui-org/react",
+        "@heroui/react",
         "lucide-react",
         "moment",
         "date-fns",
@@ -35,7 +35,7 @@ export default defineConfig({
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-          "@nextui-org/react": "NextUI",
+          "@heroui/react": "NextUI",
           "lucide-react": "LucideReact",
           moment: "moment",
           "date-fns": "DateFns",

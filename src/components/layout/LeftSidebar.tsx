@@ -6,7 +6,7 @@ import {
   DropdownTrigger,
   Listbox,
   ListboxItem,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { VraContext } from "@/store/vra-context.tsx";
 import { cn } from "@/lib/utils.tsx";
 import { Database02, LogOut01 } from "@untitled-ui/icons-react";

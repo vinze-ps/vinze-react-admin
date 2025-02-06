@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { ColumnDef, Row } from "@tanstack/react-table";
-import { Button, Chip } from "@nextui-org/react";
+import { Button, Chip } from "@heroui/react";
 import { DataTableColumnHeader } from "@/components/ui/data-table";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Checkbox } from "@/components/ui/checkbox";

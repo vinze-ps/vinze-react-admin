@@ -1,4 +1,4 @@
-import { Button as ButtonNEXT, ButtonProps } from "@nextui-org/react";
+import { Button as ButtonNEXT, ButtonProps } from "@heroui/react";
 
 import { cn } from "@/lib/utils";
 import React, { forwardRef } from "react";

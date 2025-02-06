@@ -1,4 +1,4 @@
-import { Input as InputNEXT, InputProps } from "@nextui-org/react";
+import { Input as InputNEXT, InputProps } from "@heroui/react";
 
 import { cn } from "@/lib/utils";
 import { forwardRef } from "react";

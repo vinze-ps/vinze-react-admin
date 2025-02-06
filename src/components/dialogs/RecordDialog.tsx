@@ -8,7 +8,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { VraContext } from "@/store/vra-context.tsx";
 import TextEditor from "@/components/text_editor/TextEditor.tsx";
 

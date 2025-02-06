@@ -71,7 +71,7 @@ import {
   CommandSeparator,
 } from "./command";
 import { Badge } from "./badge";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useMemo } from "react";
 
 export const statuses = [

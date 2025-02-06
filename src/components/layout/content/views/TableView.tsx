@@ -17,7 +17,7 @@ import {
   Pagination,
   Selection,
   SortDescriptor,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { DotsVertical, SearchMd } from "@untitled-ui/icons-react";
 import { Input } from "@/components/ui/input.tsx";
 import TextEditor from "@/components/text_editor/TextEditor.tsx";
